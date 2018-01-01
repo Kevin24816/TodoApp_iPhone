@@ -9,9 +9,13 @@
 import UIKit
 
 class AuthenticationViewController: UIViewController {
+    var apiToken: String?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        let notesVC = segue.destination as! NotesViewController
+        if let token = apiToken {
+            notesVC.apiToken = token
+        }
     }
 
     @IBOutlet weak var emailField: UITextField!
@@ -28,19 +32,18 @@ class AuthenticationViewController: UIViewController {
                 signupStatus.isHidden = false
                 return
         }
-        
         // try to create user
         
+        apiToken = "temp"
         performSegue(withIdentifier: "notes", sender: nil)
-        print("1")
     }
     
     @IBAction func signinPressed(_ sender: UIButton) {
-        print("pressed signin")
+        
+        // authenticate with server
+        apiToken = "temp"
         performSegue(withIdentifier: "notes", sender: nil)
-        print("2")
     }
-    
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
     }
