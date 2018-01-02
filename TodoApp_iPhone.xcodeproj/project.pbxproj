@@ -14,6 +14,7 @@
 		0AD2D6D61FF5FD0F005C1945 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6D51FF5FD0F005C1945 /* AuthenticationViewController.swift */; };
 		0AD2D6D81FF8DA4A005C1945 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */; };
 		0AD2D6DA1FF9D537005C1945 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6D91FF9D537005C1945 /* NoteCell.swift */; };
+		0AD2D6DC1FFA1FBD005C1945 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6DB1FFA1FBD005C1945 /* Note.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0AD2D6D51FF5FD0F005C1945 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		0AD2D6D91FF9D537005C1945 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
+		0AD2D6DB1FFA1FBD005C1945 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				0AD2D6D51FF5FD0F005C1945 /* AuthenticationViewController.swift */,
 				0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */,
 				0AD2D6D91FF9D537005C1945 /* NoteCell.swift */,
+				0AD2D6DB1FFA1FBD005C1945 /* Note.swift */,
 			);
 			path = TodoApp_iPhone;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD2D6DC1FFA1FBD005C1945 /* Note.swift in Sources */,
 				0AD2D6D61FF5FD0F005C1945 /* AuthenticationViewController.swift in Sources */,
 				0AD2D6C41FF3890E005C1945 /* AppDelegate.swift in Sources */,
 				0AD2D6D81FF8DA4A005C1945 /* NotesViewController.swift in Sources */,

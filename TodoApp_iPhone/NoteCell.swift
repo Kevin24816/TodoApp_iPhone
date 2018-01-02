@@ -10,16 +10,18 @@ import UIKit
 
 class NoteCell: UITableViewCell {
     
-    @IBOutlet weak var DescriptionText: UITextView!
-    @IBOutlet weak var TitleText: UILabel!
+    @IBOutlet weak var detailText: UITextView!
+    @IBOutlet weak var titleText: UILabel!
+    @IBOutlet weak var btnCompleted: UIButton!
     
     @IBAction func editPressed(_ sender: UIButton) {
     }
     
     @IBAction func deletePressed(_ sender: UIButton) {
+        print("delete pressed")
     }
     
-    @IBAction func toggleCompleted(_ sender: UIButton) {
+    @IBAction func toggleCompletedPressed(_ sender: UIButton) {
     }
     
     override func awakeFromNib() {

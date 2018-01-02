@@ -8,21 +8,51 @@
 
 import UIKit
 
-class NotesViewController: UIViewController, UITableViewDelegate {
+class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var notes = [Note]()
     var apiToken:String?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // testing creation of cell
+        for i in 0..<5 {
+            let n = Note(title: "Note # \(String(i))", detail: "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+            notes += [n]
+        }
+        tableView.reloadData()
     }
     
-    var notes = [NoteCell]()
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return notes.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
+        
+        // create the cell here
+        let note = notes[indexPath.row]
 
+        cell.titleText.text = note.title
+        cell.detailText.text = note.detail
+        cell.btnCompleted.setTitle(note.completed == true ? "☑️" : "🔘", for: .normal)
+        return cell
+    }
+    
+    @IBAction func signoutPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "signout", sender: nil)
+    }
+    
+    @IBAction func addNotePressed(_ sender: UIBarButtonItem) {
+    }
+    
     /*
     // MARK: - Navigation
 

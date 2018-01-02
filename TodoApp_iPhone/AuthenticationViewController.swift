@@ -9,19 +9,20 @@
 import UIKit
 
 class AuthenticationViewController: UIViewController {
-    var apiToken: String?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let notesVC = segue.destination as! NotesViewController
-        if let token = apiToken {
-            notesVC.apiToken = token
+        if let notesVC = segue.destination as? NotesViewController {
+            if let token = apiToken {
+                notesVC.apiToken = token
+            }
         }
     }
+    
+    var apiToken: String?
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var passwordConfField: UITextField!
-    @IBOutlet weak var signupBtn: UIButton!
     @IBOutlet weak var signinStatus: UILabel!
     @IBOutlet weak var signupStatus: UILabel!
     
@@ -45,18 +46,10 @@ class AuthenticationViewController: UIViewController {
         performSegue(withIdentifier: "notes", sender: nil)
     }
     
-    @IBAction func backBtnPressed(_ sender: UIButton) {
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }
