@@ -15,6 +15,7 @@
 		0AD2D6D81FF8DA4A005C1945 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */; };
 		0AD2D6DA1FF9D537005C1945 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6D91FF9D537005C1945 /* NoteCell.swift */; };
 		0AD2D6DC1FFA1FBD005C1945 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6DB1FFA1FBD005C1945 /* Note.swift */; };
+		0AD2D6E51FFB81CF005C1945 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6E41FFB81CF005C1945 /* TodoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		0AD2D6D91FF9D537005C1945 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		0AD2D6DB1FFA1FBD005C1945 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		0AD2D6E41FFB81CF005C1945 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,17 +62,42 @@
 		0AD2D6C21FF3890E005C1945 /* TodoApp_iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				0AD2D6E31FFB813F005C1945 /* Views */,
+				0AD2D6E21FFB80C2005C1945 /* Models */,
+				0AD2D6E11FFB8062005C1945 /* Controllers */,
 				0AD2D6C31FF3890E005C1945 /* AppDelegate.swift */,
-				0AD2D6C71FF3890E005C1945 /* Main.storyboard */,
 				0AD2D6CA1FF3890E005C1945 /* Assets.xcassets */,
-				0AD2D6CC1FF3890E005C1945 /* LaunchScreen.storyboard */,
 				0AD2D6CF1FF3890E005C1945 /* Info.plist */,
+			);
+			path = TodoApp_iPhone;
+			sourceTree = "<group>";
+		};
+		0AD2D6E11FFB8062005C1945 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				0AD2D6D51FF5FD0F005C1945 /* AuthenticationViewController.swift */,
 				0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */,
 				0AD2D6D91FF9D537005C1945 /* NoteCell.swift */,
-				0AD2D6DB1FFA1FBD005C1945 /* Note.swift */,
 			);
-			path = TodoApp_iPhone;
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0AD2D6E21FFB80C2005C1945 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0AD2D6DB1FFA1FBD005C1945 /* Note.swift */,
+				0AD2D6E41FFB81CF005C1945 /* TodoModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0AD2D6E31FFB813F005C1945 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0AD2D6CC1FF3890E005C1945 /* LaunchScreen.storyboard */,
+				0AD2D6C71FF3890E005C1945 /* Main.storyboard */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +175,7 @@
 				0AD2D6DC1FFA1FBD005C1945 /* Note.swift in Sources */,
 				0AD2D6D61FF5FD0F005C1945 /* AuthenticationViewController.swift in Sources */,
 				0AD2D6C41FF3890E005C1945 /* AppDelegate.swift in Sources */,
+				0AD2D6E51FFB81CF005C1945 /* TodoModel.swift in Sources */,
 				0AD2D6D81FF8DA4A005C1945 /* NotesViewController.swift in Sources */,
 				0AD2D6DA1FF9D537005C1945 /* NoteCell.swift in Sources */,
 			);

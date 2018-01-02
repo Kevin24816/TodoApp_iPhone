@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uuD-GS-6Ux">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uuD-GS-6Ux">
                                 <rect key="frame" x="10" y="72" width="355" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -75,7 +75,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4ew-0O-rNo" firstAttribute="top" secondItem="uuD-GS-6Ux" secondAttribute="bottom" constant="8" id="2px-xN-GdE"/>
                             <constraint firstItem="y0f-ux-YvK" firstAttribute="top" secondItem="dWI-rf-I9z" secondAttribute="bottom" constant="8" id="AmL-x2-QEr"/>
@@ -101,7 +101,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Sign In" id="HoJ-RQ-ihP"/>
                     <connections>
-                        <outlet property="signinStatus" destination="h3L-OW-d62" id="AJD-rc-t5o"/>
+                        <outlet property="signInPasswordField" destination="4ew-0O-rNo" id="b0E-xv-KeM"/>
+                        <outlet property="signInStatus" destination="h3L-OW-d62" id="AJD-rc-t5o"/>
+                        <outlet property="signInUsernameField" destination="uuD-GS-6Ux" id="T11-d2-nlM"/>
                         <segue destination="6kH-qg-QiH" kind="show" identifier="notes" id="I9M-rk-FiL"/>
                     </connections>
                 </viewController>
@@ -129,7 +131,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8uv-Of-vNZ">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8uv-Of-vNZ">
                                 <rect key="frame" x="10" y="72" width="355" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -158,7 +160,11 @@
                                 <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem title="Sign Up" id="aX1-AJ-7rd">
-                                        <barButtonItem key="leftBarButtonItem" title="Sign In" id="uFY-86-153"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Sign In" id="uFY-86-153">
+                                            <connections>
+                                                <segue destination="BYZ-38-t0r" kind="show" identifier="back to sign in" id="szl-nA-ho1"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -186,10 +192,10 @@
                         <viewLayoutGuide key="safeArea" id="dXB-Uq-d6q"/>
                     </view>
                     <connections>
-                        <outlet property="emailField" destination="8uv-Of-vNZ" id="ZXF-y8-KNf"/>
-                        <outlet property="passwordConfField" destination="NMB-fJ-aAS" id="QqW-qu-qZW"/>
-                        <outlet property="passwordField" destination="YTt-7A-Ffc" id="2x7-uZ-uoR"/>
-                        <outlet property="signupStatus" destination="Kzb-1c-5rP" id="PGn-RP-tmd"/>
+                        <outlet property="signUpPasswordConfField" destination="NMB-fJ-aAS" id="QqW-qu-qZW"/>
+                        <outlet property="signUpPasswordField" destination="YTt-7A-Ffc" id="2x7-uZ-uoR"/>
+                        <outlet property="signUpStatus" destination="Kzb-1c-5rP" id="PGn-RP-tmd"/>
+                        <outlet property="signUpUsernameField" destination="8uv-Of-vNZ" id="ZXF-y8-KNf"/>
                         <segue destination="6kH-qg-QiH" kind="show" identifier="notes" id="sSh-Qs-oHL"/>
                     </connections>
                 </viewController>
@@ -349,6 +355,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="I9M-rk-FiL"/>
+        <segue reference="sSh-Qs-oHL"/>
+        <segue reference="szl-nA-ho1"/>
     </inferredMetricsTieBreakers>
 </document>

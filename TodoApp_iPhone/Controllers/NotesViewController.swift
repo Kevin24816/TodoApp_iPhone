@@ -13,7 +13,7 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     
     var notes = [Note]()
-    var apiToken:String?
+    var model: TodoModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
