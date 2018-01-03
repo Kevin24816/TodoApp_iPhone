@@ -13,54 +13,60 @@ class TodoModel {
     var apiToken: String?
     var username: String?
     var notes = [Note]()
-    let urlString = "https://todoapp24.herokuapp.com/"
+    let urlString = "http://TodoApp.test/"
     
     func login(username: String, password: String) -> (Bool, String) {
-        let url = URL(string: urlString + "/auth")
+        let url = URL(string: "http://TodoApp.test/auth")
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
+        
+        let json: [String: Any] = ["username": username, "password": password]
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: json)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        print("sending sign in request with username: \(username) and password \(password)")
         
         var failed = false
         var statusMsg = ""
         var sessionUsername = ""
         var sessionToken = ""
-        let dataTask = URLSession.shared.dataTask(with: request) {
+        URLSession.shared.dataTask(with: request) {
             data, response, error in
             
             if error != nil {
-                statusMsg = error.debugDescription
+                print(error!.localizedDescription)
                 failed = true
-                print(statusMsg)
+                statusMsg = error!.localizedDescription
             }
             
+            guard let data = data else { return }
+            
             do {
-                if let jsonData = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] {
-                    if let user = jsonData["username"] as? String {
+                if let jsonData = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] {
+                    print(jsonData)
+                    if let user = jsonData["username"] as? String, let token = jsonData["token"] as? String {
                         sessionUsername = user
-                        print("email: \(user)")
+                        sessionToken = token
                     }
-                    if let apiToken = jsonData["token"] as? String {
-                        sessionToken = apiToken
-                        print("token: \(apiToken)")
+                    
+                    DispatchQueue.main.async {
+                        self.username = sessionUsername
+                        self.apiToken = sessionToken
                     }
-                    print("completed parsing")
                 }
             } catch let error as NSError {
                 print(error.localizedDescription)
             }
-        }
-        dataTask.resume()
+        }.resume()
         
         if failed, sessionUsername == "" || sessionToken == "" {
+            print("request failed")
             return (false, statusMsg)
         }
         
-        apiToken = sessionToken
-        self.username = sessionUsername
-        // TODO: I NEED TO MAKE SURE REQUEST FINISHES LOADING BEFORE I MOVE ON
-        // https://stackoverflow.com/questions/42705278/swift-url-session-and-url-request-not-working
-        // learn about completion handlers
-        print("request successful: username: \(self.username), token: \(apiToken)")
         return (true, "")
     }
     
