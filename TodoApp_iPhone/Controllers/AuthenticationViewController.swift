@@ -12,11 +12,9 @@ class AuthenticationViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let notesVC = segue.destination as? NotesViewController {
-            notesVC.model = model
+            // pass the model
         }
     }
-    
-    var model: TodoModel? // should this be optional?
 
     @IBOutlet weak var signInUsernameField: UITextField!
     @IBOutlet weak var signInPasswordField: UITextField!
@@ -28,21 +26,27 @@ class AuthenticationViewController: UIViewController {
     @IBOutlet weak var signUpStatus: UILabel!
     
     @IBAction func signinPressed(_ sender: UIButton) {
-        guard signInUsernameField.text != "", signInPasswordField.text != ""
-            else {
-                signInFailed(withMsg: "Please fill in all fields above")
-                return
+        guard let username = signInUsernameField.text, let password = signInPasswordField.text else {
+            print("error: text fields are nil")
+            return
+        }
+        
+        guard !username.isEmpty, !password.isEmpty else {
+            print("username: \(username), password: \(password)")
+            signInFailed(withMsg: "Please fill in all fields above")
+            return
         }
         
         // authenticate user
-        model = TodoModel()
-        let (successful, message) = (model?.login(username: signInUsernameField.text!, password: signInPasswordField.text!))!
-        guard successful == true
-            else {
-                signInFailed(withMsg: message)
-                return
+        let model = TodoModel()
+        model.login(username: username, password: password, completionHandler: loginAuthenticated(success:response:error:))
+    }
+    
+    func loginAuthenticated(success: Bool, response: Any?, error: Error?) {
+        guard let authData = response as? [String: String] else {
+            return
         }
-        
+        print("data received in view: \(authData)")
         performSegue(withIdentifier: "notes", sender: nil)
     }
     
@@ -54,16 +58,9 @@ class AuthenticationViewController: UIViewController {
                 return
         }
         
-        // try to create user
-        model = TodoModel()
-        let (successful, message) = (model?.signup(username: signUpUsernameField.text!, password: signUpPasswordField.text!, passwordConf: signUpPasswordConfField.text!))!
-        guard successful == true
-            else {
-                signUpFailed(withMsg: message)
-                return
-        }
+
         
-        performSegue(withIdentifier: "notes", sender: nil)
+//        performSegue(withIdentifier: "notes", sender: nil)
     }
     
     override func viewDidLoad() {

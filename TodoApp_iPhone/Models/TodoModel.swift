@@ -14,11 +14,13 @@ class TodoModel {
     var username: String?
     var notes = [Note]()
     let urlString = "http://TodoApp.test/"
+    var serverModel = ServerModel()
     
-    func login(username: String, password: String) -> (Bool, String) {
+    func login(username: String, password: String, completionHandler completion: @escaping (Bool, Any?, Error?) -> Void) {
         let url = URL(string: "http://TodoApp.test/auth")
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let json: [String: Any] = ["username": username, "password": password]
         do {
@@ -27,47 +29,8 @@ class TodoModel {
             print(error.localizedDescription)
         }
         
-        print("sending sign in request with username: \(username) and password \(password)")
-        
-        var failed = false
-        var statusMsg = ""
-        var sessionUsername = ""
-        var sessionToken = ""
-        URLSession.shared.dataTask(with: request) {
-            data, response, error in
-            
-            if error != nil {
-                print(error!.localizedDescription)
-                failed = true
-                statusMsg = error!.localizedDescription
-            }
-            
-            guard let data = data else { return }
-            
-            do {
-                if let jsonData = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] {
-                    print(jsonData)
-                    if let user = jsonData["username"] as? String, let token = jsonData["token"] as? String {
-                        sessionUsername = user
-                        sessionToken = token
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.username = sessionUsername
-                        self.apiToken = sessionToken
-                    }
-                }
-            } catch let error as NSError {
-                print(error.localizedDescription)
-            }
-        }.resume()
-        
-        if failed, sessionUsername == "" || sessionToken == "" {
-            print("request failed")
-            return (false, statusMsg)
-        }
-        
-        return (true, "")
+        serverModel.sendHTTPRequest(withRequest: request, getDataOn: ["username", "token"], completionHandler: completion)
+
     }
     
     func signup(username: String, password: String, passwordConf: String) -> (Bool, String) {
@@ -94,6 +57,13 @@ class TodoModel {
     
     init() {
         
+    }
+    
+//    private func makeRequest(withURLExtension ext: URL, withHTTPMethod method: String, withHeader header: [String: Any], withBody body: [String: Any]) -> URLRequest {
+//
+//    }
+    private func sendRequest(withRequest request: URLRequest, returnDataOn dataKeys: [String]) -> (Int, [String: Any]) {
+        return (0, [:])
     }
     
 }
