@@ -12,22 +12,17 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var tableView: UITableView!
     
-    var notes = [Note]()
     var model: TodoModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let todoModel = self.model {
-            print("model received")
+        guard let model = self.model else {
+            print("error: todo model not revceived from:NotesViewController@viewDidLoad()")
+            return
         }
         
-//        // testing creation of cell
-//        for i in 0..<5 {
-//            let n = Note(title: "Note # \(String(i))", detail: "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-//            notes += [n]
-//        }
-//        tableView.reloadData()
+        model.loadNotes(viewCompletionHandler: loadNotesHandler(success:response:error:))
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -35,14 +30,14 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notes.count
+        return model!.getNotes().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
         
         // create the cell here
-        let note = notes[indexPath.row]
+        let note = model!.getNotes()[indexPath.row]
 
         cell.titleText.text = note.title
         cell.detailText.text = note.detail
@@ -58,13 +53,20 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+     Loads the notes for the user.
+     */
+    private func loadNotesHandler(success: Bool, response: Any?, error: Error?) {
+        if !success {
+            print("error from AuthenticatinViewController: login auth failed. Trace:\(error!.localizedDescription)")
+            return
+        }
+        
+        tableView.reloadData()
     }
-    */
-
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
 }

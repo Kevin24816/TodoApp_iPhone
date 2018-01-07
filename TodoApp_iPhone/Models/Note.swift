@@ -11,9 +11,15 @@ import Foundation
 struct Note {
     var title: String
     var detail: String
-    var completed = false
+    var completed: Bool
+    var createdAt: String
+    var serverID: String
     
-    init(title: String, detail: String) {
+    init(withTitle title: String,
+         withDetail detail: String,
+         withCreatedDate createdAt: String,
+         withServerID serverID: String,
+         withCompleted completed: Bool) {
         self.title = title
         self.detail = detail
     }

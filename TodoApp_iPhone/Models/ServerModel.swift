@@ -11,20 +11,26 @@ import Foundation
 class ServerModel {
     static let urlAddress = "http://TodoApp.test/"
     
-    static func makeHTTPRequest(withURLExt ext: String, withHTTPMethod method: String, withJsonHeader headerDict: [String: String]?, withJsonBody bodyDict: [String: Any]?) -> URLRequest {
+    static func makeHTTPRequest(withURLExt ext: String, withHTTPMethod method: String, withRequestHeaders headerDict: [String: String]?, withRequestBody bodyDict: [String: Any]?) -> URLRequest {
         let url = URL(string: urlAddress + ext)
         var request = URLRequest(url: url!)
         request.httpMethod = method
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        if let jsonBody = bodyDict {
+        if let body = bodyDict {
             do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: jsonBody)
+                request.httpBody = try JSONSerialization.data(withJSONObject: body)
             } catch let error {
                 print(error.localizedDescription)
             }
         }
-
+        
+        if let headers = headerDict {
+            for key in headers.keys {
+                request.addValue(headers[key]!, forHTTPHeaderField: key)
+            }
+        }
+        
         return request
     }
     
@@ -43,13 +49,11 @@ class ServerModel {
             }
             
             // parse json
-            var sessionData = [String: String]()
+            var sessionData = [String: Any]()
             do {
                 if let jsonData = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] {
-                    
                     for key in dataKeys {
-                        // TODO: I should allow parsing all types of data here
-                        if let item = jsonData[key] as? String {
+                        if let item = jsonData[key] {
                             sessionData[key] = item
                         }
                     }
@@ -60,7 +64,7 @@ class ServerModel {
                     completion(true, sessionData, nil)
                 }
             } catch let error as NSError {
-                print("error: \(error.localizedDescription); FROM(sendHTTPRequest in ServerModel)")
+                print("error: \(error.localizedDescription) from: ServerModel@sendHTTPRequest")
             }
         }.resume()
     }

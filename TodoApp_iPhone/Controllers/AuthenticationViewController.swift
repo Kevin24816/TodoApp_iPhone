@@ -65,7 +65,6 @@ class AuthenticationViewController: UIViewController {
             return
         }
         
-        print("view completion handler called")
         performSegue(withIdentifier: "notes", sender: nil)
     }
     
