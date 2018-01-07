@@ -18,12 +18,16 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // testing creation of cell
-        for i in 0..<5 {
-            let n = Note(title: "Note # \(String(i))", detail: "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-            notes += [n]
+        if let todoModel = self.model {
+            print("model received")
         }
-        tableView.reloadData()
+        
+//        // testing creation of cell
+//        for i in 0..<5 {
+//            let n = Note(title: "Note # \(String(i))", detail: "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+//            notes += [n]
+//        }
+//        tableView.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

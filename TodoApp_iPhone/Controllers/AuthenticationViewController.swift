@@ -10,11 +10,7 @@ import UIKit
 
 class AuthenticationViewController: UIViewController {
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let notesVC = segue.destination as? NotesViewController {
-            // pass the model
-        }
-    }
+    private var todoModel: TodoModel?
 
     @IBOutlet weak var signInUsernameField: UITextField!
     @IBOutlet weak var signInPasswordField: UITextField!
@@ -32,35 +28,29 @@ class AuthenticationViewController: UIViewController {
         }
         
         guard !username.isEmpty, !password.isEmpty else {
-            print("username: \(username), password: \(password)")
-            signInFailed(withMsg: "Please fill in all fields above")
+            signInStatus.text = "Please fill in all fields above"
+            signInStatus.isHidden = false
             return
         }
         
-        // authenticate user
-        let model = TodoModel()
-        model.login(username: username, password: password, completionHandler: loginAuthenticated(success:response:error:))
-    }
-    
-    func loginAuthenticated(success: Bool, response: Any?, error: Error?) {
-        guard let authData = response as? [String: String] else {
-            return
-        }
-        print("data received in view: \(authData)")
-        performSegue(withIdentifier: "notes", sender: nil)
+        self.todoModel = TodoModel()
+        self.todoModel!.login(username: username, password: password, viewCompletionHandler: authHandler(success:response:error:))
     }
     
     @IBAction func signupPressed(_ sender: UIButton) {
-        
-        guard signUpUsernameField.text != "", signUpPasswordField.text != "", signUpPasswordConfField.text != ""
-            else {
-                signUpFailed(withMsg: "Please fill in all fields above")
-                return
+        guard let username = signUpUsernameField.text, let password = signUpPasswordField.text, let password_conf = signUpPasswordConfField.text else {
+            print("error: text fields are nil")
+            return
         }
         
-
+        guard !username.isEmpty, !password.isEmpty, !password_conf.isEmpty else {
+            signUpStatus.text = "Please fill in all fields above"
+            signUpStatus.isHidden = false
+            return
+        }
         
-//        performSegue(withIdentifier: "notes", sender: nil)
+        self.todoModel = TodoModel()
+        self.todoModel!.signup(username: username, password: password, passwordConf: password_conf, viewCompletionHandler: authHandler(success:response:error:))
     }
     
     override func viewDidLoad() {
@@ -68,15 +58,27 @@ class AuthenticationViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
-    private func signInFailed(withMsg message: String) {
-        signInStatus.text = message
-        signInStatus.isHidden = false
-    }
-    
-    private func signUpFailed(withMsg message: String) {
-        signUpStatus.text = message
-        signUpStatus.isHidden = false
-    }
 
+    private func authHandler(success: Bool, response: Any?, error: Error?) {
+        if !success {
+            print("error from AuthenticatinViewController: login auth failed. Trace:\(error!.localizedDescription)")
+            return
+        }
+        
+        print("view completion handler called")
+        performSegue(withIdentifier: "notes", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let notesVC = segue.destination as? NotesViewController {
+            guard let todoModel = self.todoModel else {
+                print("error: todoModel not stored")
+                return
+            }
+            
+            notesVC.model = todoModel
+        } else {
+            print("error in prepare for segue in AuthenticationViewController: notesVC was unable to be obtained in segue.")
+        }
+    }
 }

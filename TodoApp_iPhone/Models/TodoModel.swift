@@ -13,28 +13,21 @@ class TodoModel {
     var apiToken: String?
     var username: String?
     var notes = [Note]()
-    let urlString = "http://TodoApp.test/"
-    var serverModel = ServerModel()
     
-    func login(username: String, password: String, completionHandler completion: @escaping (Bool, Any?, Error?) -> Void) {
-        let url = URL(string: "http://TodoApp.test/auth")
-        var request = URLRequest(url: url!)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    func login(username: String, password: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let jsonBody: [String: Any] = ["username": username, "password": password]
+        let request = ServerModel.makeHTTPRequest(withURLExt: "auth", withHTTPMethod: "POST", withJsonHeader: nil, withJsonBody: jsonBody)
         
-        let json: [String: Any] = ["username": username, "password": password]
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: json)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        
-        serverModel.sendHTTPRequest(withRequest: request, getDataOn: ["username", "token"], completionHandler: completion)
-
+        let completionHandler = authHandlerFactory(viewCompletionHandler: viewHandler)
+        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["username", "token"], completionHandler: completionHandler)
     }
     
-    func signup(username: String, password: String, passwordConf: String) -> (Bool, String) {
-        return (true, "")
+    func signup(username: String, password: String, passwordConf: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let jsonBody: [String: Any] = ["username": username, "password": password, "password_confirmation": passwordConf]
+        let request = ServerModel.makeHTTPRequest(withURLExt: "users", withHTTPMethod: "POST", withJsonHeader: nil, withJsonBody: jsonBody)
+        
+        let completionHandler = authHandlerFactory(viewCompletionHandler: viewHandler)
+        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["username", "token"], completionHandler: completionHandler)
     }
     
     func addNote(withTitle title: String, withDetail detail: String) {
@@ -59,9 +52,36 @@ class TodoModel {
         
     }
     
-//    private func makeRequest(withURLExtension ext: URL, withHTTPMethod method: String, withHeader header: [String: Any], withBody body: [String: Any]) -> URLRequest {
-//
-//    }
+    private func authHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> (Bool, Any?, Error?) -> Void {
+        
+        let completionHandler: (Bool, Any?, Error?) -> Void = {
+            success, response, error in
+            
+            if !success {
+                print("error: database failed. Description: \(error!.localizedDescription)")
+                viewHandler(false, nil, error)
+                return
+            }
+            
+            guard let authData = response as? [String: String] else {
+                print("error: incorrect data received from database. Description: \(error!.localizedDescription)")
+                viewHandler(false, nil, error)
+                return
+            }
+            
+            guard let username = authData["username"], let token = authData["token"] else {
+                print("error: incorrect data was receved from http response")
+                return
+            }
+            
+            self.username = username
+            self.apiToken = token
+            viewHandler(true, nil, nil)
+        }
+        
+        return completionHandler
+    }
+    
     private func sendRequest(withRequest request: URLRequest, returnDataOn dataKeys: [String]) -> (Int, [String: Any]) {
         return (0, [:])
     }
