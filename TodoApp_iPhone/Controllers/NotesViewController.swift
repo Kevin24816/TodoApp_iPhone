@@ -11,8 +11,17 @@ import UIKit
 class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    
     var model: TodoModel?
+    
+    @IBAction func signoutPressed(_ sender: UIBarButtonItem) {
+        model?.signout(viewCompletionHandler: signoutHandler(success:response:error:))
+//        performSegue(withIdentifier: "signout", sender: nil)
+    }
+    
+    @IBAction func addNotePressed(_ sender: UIBarButtonItem) {
+        // TODO: segue to note creater and then back to create the note
+        model?.addNote(withTitle: "test", withDetail: "description")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +31,8 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return
         }
         
-        model.loadNotes(viewCompletionHandler: loadNotesHandler(success:response:error:))
+        // loads the notes for the user
+        model.loadNotes(viewCompletionHandler: reloadNotesHandler(success:response:error:))
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,28 +55,28 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
-    @IBAction func signoutPressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "signout", sender: nil)
-    }
-    
-    @IBAction func addNotePressed(_ sender: UIBarButtonItem) {
+    private func signoutHandler(success: Bool, response: Any?, error: Error?) {
+        if !success {
+            print("error: server signout failed. from: NotesViewController@signoutHandler. Trace: \(error!.localizedDescription)")
+        }
+        
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "signout", sender: nil)
+        }
     }
     
     /*
-     Loads the notes for the user.
+     Reloads the notes for the user.
      */
-    private func loadNotesHandler(success: Bool, response: Any?, error: Error?) {
+    private func reloadNotesHandler(success: Bool, response: Any?, error: Error?) {
         if !success {
-            print("error from AuthenticatinViewController: login auth failed. Trace:\(error!.localizedDescription)")
+            print("error: server load notes failed. from: NotesViewController@loadNotesHandler. Trace:\(error!.localizedDescription)")
             return
         }
-        
         tableView.reloadData()
     }
     
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//    }
 }

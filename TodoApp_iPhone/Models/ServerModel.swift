@@ -48,23 +48,28 @@ class ServerModel {
                 return
             }
             
-            // parse json
-            var sessionData = [String: Any]()
-            do {
-                if let jsonData = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] {
-                    for key in dataKeys {
-                        if let item = jsonData[key] {
-                            sessionData[key] = item
+            if dataKeys.count == 0 {
+                completion(true, nil, nil)
+            } else {
+                // parse keys from json
+                var sessionData = [String: Any]()
+                do {
+                    if let jsonData = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] {
+                        for key in dataKeys {
+                            if let item = jsonData[key] {
+                                sessionData[key] = item
+                            }
                         }
                     }
+                    
+                    DispatchQueue.main.async {
+                        print("parsed session data: \(sessionData)")
+                        completion(true, sessionData, nil)
+                    }
+                } catch let error as NSError {
+                    print("Error: failed to parse json. From: ServerModel@sendHTTPRequest. Description: \(error.localizedDescription)")
+                    completion(false, nil, error)
                 }
-                
-                DispatchQueue.main.async {
-                    print("parsed session data: \(sessionData)")
-                    completion(true, sessionData, nil)
-                }
-            } catch let error as NSError {
-                print("error: \(error.localizedDescription) from: ServerModel@sendHTTPRequest")
             }
         }.resume()
     }

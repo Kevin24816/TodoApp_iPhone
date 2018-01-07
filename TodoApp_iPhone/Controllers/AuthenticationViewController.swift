@@ -61,11 +61,13 @@ class AuthenticationViewController: UIViewController {
 
     private func authHandler(success: Bool, response: Any?, error: Error?) {
         if !success {
-            print("error from AuthenticatinViewController: login auth failed. Trace:\(error!.localizedDescription)")
+            print("error: authentication failed. from: AuthenticatinViewController@authHandler. Trace:\(error!.localizedDescription)")
             return
         }
         
-        performSegue(withIdentifier: "notes", sender: nil)
+        DispatchQueue.main.async {
+            performSegue(withIdentifier: "notes", sender: nil)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -77,7 +79,7 @@ class AuthenticationViewController: UIViewController {
             
             notesVC.model = todoModel
         } else {
-            print("error in prepare for segue in AuthenticationViewController: notesVC was unable to be obtained in segue.")
+            print("error: notesVC was unable to be obtained in segue. from: AuthenticationViewController@prepare(for segue)")
         }
     }
 }

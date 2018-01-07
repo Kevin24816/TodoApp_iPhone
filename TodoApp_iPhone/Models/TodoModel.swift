@@ -30,6 +30,13 @@ class TodoModel {
         ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["username", "token"], completionHandler: completionHandler)
     }
     
+    func signout(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
+        let request = ServerModel.makeHTTPRequest(withURLExt: "auth", withHTTPMethod: "DELETE", withRequestHeaders: requestHeaders, withRequestBody: nil)
+        let completionHandler = signoutHandlerFactory(viewCompletionHandler: viewHandler)
+        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: [], completionHandler: completionHandler)
+    }
+    
     func loadNotes(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
         let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
         let request = ServerModel.makeHTTPRequest(withURLExt: "notes", withHTTPMethod: "GET", withRequestHeaders: requestHeaders, withRequestBody: nil)
@@ -94,16 +101,7 @@ class TodoModel {
                 viewHandler(false, nil, error)
                 return
             }
-            
-//            guard let authData = response as? [String: String] else {
-//                print("error: incorrect data received from database. Description: \(error!.localizedDescription)")
-//                viewHandler(false, nil, error)
-//                return
-//            }
-            
 
-            
-            // TODO: store the notes
             guard let data = response as? [String: NSArray] else {
                 print("error: failed to convert response from: TodoModel@loadNotesHandlerFactory")
                 return
@@ -114,17 +112,37 @@ class TodoModel {
                 return
             }
             
+            // store the notes
             for noteItem in notes {
-                var note = Note(withTitle: noteItem["title"] as! String,
+                let note = Note(withTitle: noteItem["title"] as! String,
                                 withDetail: noteItem["description"] as! String,
+                                withCompleted: noteItem["completed"] as! Bool,
                                 withCreatedDate: noteItem["created_at"] as! String,
-                                withServerID: noteItem["id"] as! String,
-                                withCompleted: noteItem["completed"] as! Bool
+                                withServerID: noteItem["id"] as! Int
                 )
-                self.notes += note
+                self.notes.append(note)
             }
 
             viewHandler(true, nil, nil)
+        }
+        
+        return completionHandler
+    }
+    
+    private func signoutHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
+        let completionHandler: (Bool, Any?, Error?) -> Void = {
+            success, response, error in
+            
+            if !success {
+                print("error: database failed. From: TodoModel@signoutHandlerFactory. Description: \(error!.localizedDescription)")
+                viewHandler(false, nil, error)
+                return
+            }
+            
+            viewHandler(true, nil, nil)
+            self.apiToken = nil
+            self.username = nil
+            self.notes = [Note]()
         }
         
         return completionHandler

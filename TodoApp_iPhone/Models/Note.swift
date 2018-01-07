@@ -12,16 +12,19 @@ struct Note {
     var title: String
     var detail: String
     var completed: Bool
-    var createdAt: String
-    var serverID: String
+    var createdDate: String
+    var serverID: Int
     
     init(withTitle title: String,
          withDetail detail: String,
-         withCreatedDate createdAt: String,
-         withServerID serverID: String,
-         withCompleted completed: Bool) {
+         withCompleted completed: Bool,
+         withCreatedDate createdDate: String,
+         withServerID serverID: Int) {
         self.title = title
         self.detail = detail
+        self.completed = completed
+        self.createdDate = createdDate
+        self.serverID = serverID
     }
     
     mutating func toggleCompleted() {
