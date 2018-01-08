@@ -45,8 +45,13 @@ class TodoModel {
         ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["notes"], completionHandler: completionHandler)
     }
     
-    func addNote(withTitle title: String, withDetail detail: String) {
+    func addNote(withTitle title: String, withDetail detail: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
+        let requestBody = ["title": title, "description": detail]
+        let request = ServerModel.makeHTTPRequest(withURLExt: "notes", withHTTPMethod: "POST", withRequestHeaders: requestHeaders, withRequestBody: requestBody)
         
+        let completionHandler = saveNoteHandlerFactory(viewCompletionHandler: viewHandler)
+        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
     }
     
     func editNote(onNote id: Int, withTitle title: String?, withDetail detail: String?) {
@@ -92,6 +97,19 @@ class TodoModel {
         return completionHandler
     }
     
+    private func saveNoteHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
+        let completionHandler: (Bool, Any?, Error?) -> Void = {
+            success, response, error in
+            if success {
+                viewHandler(true, nil, nil)
+            } else {
+                viewHandler(false, nil, error)
+            }
+        }
+        
+        return completionHandler
+    }
+    
     private func loadNotesHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
         let completionHandler: (Bool, Any?, Error?) -> Void = {
             success, response, error in
@@ -112,13 +130,13 @@ class TodoModel {
                 return
             }
             
+            self.notes.removeAll()
             // store the notes
             for noteItem in notes {
                 let note = Note(withTitle: noteItem["title"] as! String,
                                 withDetail: noteItem["description"] as! String,
                                 withCompleted: noteItem["completed"] as! Bool,
-                                withCreatedDate: noteItem["created_at"] as! String,
-                                withServerID: noteItem["id"] as! Int
+                                withCreatedDate: noteItem["created_at"] as! String
                 )
                 self.notes.append(note)
             }

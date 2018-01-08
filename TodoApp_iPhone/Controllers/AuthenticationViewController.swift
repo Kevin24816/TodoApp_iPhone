@@ -66,7 +66,7 @@ class AuthenticationViewController: UIViewController {
         }
         
         DispatchQueue.main.async {
-            performSegue(withIdentifier: "notes", sender: nil)
+            self.performSegue(withIdentifier: "notes", sender: nil)
         }
     }
     

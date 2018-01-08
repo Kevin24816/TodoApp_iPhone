@@ -15,12 +15,10 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func signoutPressed(_ sender: UIBarButtonItem) {
         model?.signout(viewCompletionHandler: signoutHandler(success:response:error:))
-//        performSegue(withIdentifier: "signout", sender: nil)
     }
     
     @IBAction func addNotePressed(_ sender: UIBarButtonItem) {
-        // TODO: segue to note creater and then back to create the note
-        model?.addNote(withTitle: "test", withDetail: "description")
+        performSegue(withIdentifier: "open editor", sender: nil)
     }
     
     override func viewDidLoad() {
@@ -48,7 +46,7 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         // create the cell here
         let note = model!.getNotes()[indexPath.row]
-
+        cell.getModel = getTodoModel
         cell.titleText.text = note.title
         cell.detailText.text = note.detail
         cell.btnCompleted.setTitle(note.completed == true ? "☑️" : "🔘", for: .normal)
@@ -70,13 +68,25 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
      */
     private func reloadNotesHandler(success: Bool, response: Any?, error: Error?) {
         if !success {
-            print("error: server load notes failed. from: NotesViewController@loadNotesHandler. Trace:\(error!.localizedDescription)")
+            print("error: reload notes handler failed. from: NotesViewController@loadNotesHandler. Trace:\(error!.localizedDescription)")
             return
         }
         tableView.reloadData()
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//    }
+    private func getTodoModel() -> TodoModel {
+        return model!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let editorVC = segue.destination as? EditNoteViewController {
+            guard let todoModel = self.model else {
+                print("error: todoModel not stored")
+                return
+            }
+            
+            editorVC.model = todoModel
+            editorVC.reloadNotesHandler = reloadNotesHandler(success:response:error:)
+        }
+    }
 }
