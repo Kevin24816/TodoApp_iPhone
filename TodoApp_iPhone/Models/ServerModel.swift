@@ -9,7 +9,8 @@
 import Foundation
 
 class ServerModel {
-    static let urlAddress = "http://TodoApp.test/"
+//    static let urlAddress = "http://TodoApp.test/"
+    static let urlAddress = "https://todoapp24.herokuapp.com/"
     
     static func makeHTTPRequest(withURLExt ext: String, withHTTPMethod method: String, withRequestHeaders headerDict: [String: String]?, withRequestBody bodyDict: [String: Any]?) -> URLRequest {
         let url = URL(string: urlAddress + ext)

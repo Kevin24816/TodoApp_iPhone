@@ -385,7 +385,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHh-wr-fAU">
-                                <rect key="frame" x="30" y="607" width="315" height="30"/>
+                                <rect key="frame" x="30" y="376" width="315" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Done">
@@ -402,7 +402,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKC-RN-HHb">
-                                <rect key="frame" x="30" y="578" width="315" height="21"/>
+                                <rect key="frame" x="30" y="347" width="315" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -423,11 +423,11 @@
                             <constraint firstItem="e48-h2-5Lc" firstAttribute="leading" secondItem="usy-ag-uIr" secondAttribute="leading" id="X9P-1B-ySo"/>
                             <constraint firstItem="e48-h2-5Lc" firstAttribute="trailing" secondItem="usy-ag-uIr" secondAttribute="trailing" id="XaP-b0-Nri"/>
                             <constraint firstItem="hTA-UG-uPY" firstAttribute="leading" secondItem="usy-ag-uIr" secondAttribute="leading" constant="8" id="Zrv-V0-bAV"/>
+                            <constraint firstItem="WHh-wr-fAU" firstAttribute="top" secondItem="GKC-RN-HHb" secondAttribute="bottom" constant="8" id="bRU-un-Vmo"/>
                             <constraint firstItem="cdr-CD-ylj" firstAttribute="leading" secondItem="usy-ag-uIr" secondAttribute="leading" constant="8" id="cxL-oI-lPs"/>
-                            <constraint firstItem="WHh-wr-fAU" firstAttribute="top" secondItem="GKC-RN-HHb" secondAttribute="bottom" constant="8" id="g5R-RN-Wqz"/>
                             <constraint firstItem="usy-ag-uIr" firstAttribute="trailing" secondItem="WHh-wr-fAU" secondAttribute="trailing" constant="30" id="jvU-T7-Of7"/>
                             <constraint firstItem="WHh-wr-fAU" firstAttribute="leading" secondItem="usy-ag-uIr" secondAttribute="leading" constant="30" id="pdd-As-jaS"/>
-                            <constraint firstItem="usy-ag-uIr" firstAttribute="bottom" secondItem="WHh-wr-fAU" secondAttribute="bottom" constant="30" id="tsY-xg-JWq"/>
+                            <constraint firstItem="GKC-RN-HHb" firstAttribute="top" secondItem="cdr-CD-ylj" secondAttribute="bottom" constant="8" id="xVC-pi-oWf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="usy-ag-uIr"/>
                     </view>
