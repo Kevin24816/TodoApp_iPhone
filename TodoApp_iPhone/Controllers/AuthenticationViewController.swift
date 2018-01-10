@@ -39,7 +39,6 @@ class AuthenticationViewController: UIViewController {
     
     @IBAction func signupPressed(_ sender: UIButton) {
         guard let username = signUpUsernameField.text, let password = signUpPasswordField.text, let password_conf = signUpPasswordConfField.text else {
-            print("error: text fields are nil")
             return
         }
         
@@ -59,9 +58,13 @@ class AuthenticationViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    // view handler to handle segueing to the notes view once authentication has been confirmed by server
     private func authHandler(success: Bool, response: Any?, error: Error?) {
         if !success {
-            print("error: authentication failed. from: AuthenticatinViewController@authHandler. Trace:\(error!.localizedDescription)")
+            DispatchQueue.main.async {
+                self.signInStatus.text = "Username or password invalid"
+                self.signInStatus.isHidden = false
+            }
             return
         }
         
