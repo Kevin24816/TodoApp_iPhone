@@ -10,25 +10,46 @@ import UIKit
 
 class NoteCell: UITableViewCell {
     
-    var getModel: (() -> TodoModel)?
-    var delegate: CustomCellDelegator!
-    
+    @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var detailText: UITextView!
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var btnCompleted: UIButton!
     
+    var getModel: (() -> TodoModel)?
+    var delegate: CustomCellDelegator!
+    var serverID: Int?
+    var noteObj: Note?
+    var completed: Bool? {
+        didSet {
+            if completed == true {
+                titleView.backgroundColor = #colorLiteral(red: 0, green: 0.5603182912, blue: 0, alpha: 0.7478328339)
+                btnCompleted.backgroundColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 0.897260274)
+                btnCompleted.setTitle("Undo", for: .normal)
+            } else {
+                titleView.backgroundColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 0.897260274)
+                btnCompleted.backgroundColor = #colorLiteral(red: 0, green: 0.5603182912, blue: 0, alpha: 0.7478328339)
+                btnCompleted.setTitle("Complete", for: .normal)
+            }
+        }
+    }
     
-    
-//    if(self.delegate != nil){ //Just to be safe.
-//        self.delegate.callSegueFromCell(withCellData: nil)
-//    }
-    
-    @IBAction func toggleCompletedPressed(_ sender: UIButton) {
+    @IBAction func editNotePressed(_ sender: UIButton) {
+        
+        if self.delegate != nil {
+            self.delegate.callSegueFromCell(withCellData: noteObj)
+        }
+    }
+
+    @IBAction func toggleCompletePressed(_ sender: UIButton) {
+        if completed == true {
+            completed = false
+        } else {
+            completed = true
+        }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,18 +57,5 @@ class NoteCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
-    // TODO: how to segue from table view cell??
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let editorVC = segue.destination as? EditNoteViewController {
-//            guard let todoModel = self.model else {
-//                print("error: todoModel not stored")
-//                return
-//            }
-//
-//            editorVC.model = todoModel
-//            editorVC.reloadNotesHandler = reloadNotesHandler(success:response:error:)
-//        }
-//    }
     
 }

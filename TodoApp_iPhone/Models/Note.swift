@@ -13,15 +13,18 @@ struct Note {
     var detail: String
     var completed: Bool
     var createdDate: String
+    var id: Int
     
     init(withTitle title: String,
          withDetail detail: String,
          withCompleted completed: Bool,
-         withCreatedDate createdDate: String) {
+         withCreatedDate createdDate: String,
+         withID id: Int) {
         self.title = title
         self.detail = detail
         self.completed = completed
         self.createdDate = createdDate
+        self.id = id
     }
     
     mutating func toggleCompleted() {

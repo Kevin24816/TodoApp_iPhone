@@ -54,14 +54,23 @@ class TodoModel {
         ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
     }
     
-    func editNote(onNote id: Int, withTitle title: String?, withDetail detail: String?) {
-        if let t = title {
-            notes[id].title = t
-        }
+    func editNote(onNoteID id: Int, withTitle title: String, withDetail detail: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        print("CHECK SENDING EDIT NOTE REQUEST ON NOTE \(id)")
+        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
+        let requestBody = ["title": title, "description": detail]
+        let request = ServerModel.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "PUT", withRequestHeaders: requestHeaders, withRequestBody: requestBody)
         
-        if let d = detail {
-            notes[id].detail = d
-        }
+        let completionHandler = saveNoteHandlerFactory(viewCompletionHandler: viewHandler)
+        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
+    }
+    
+    func deleteNote(onNoteID id: Int, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        print("CHECK SENDING DELETE REQUEST ON NOTE \(id)")
+        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
+        let request = ServerModel.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "DELETE", withRequestHeaders: requestHeaders, withRequestBody: nil)
+        
+        let completionHandler = saveNoteHandlerFactory(viewCompletionHandler: viewHandler)
+        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
     }
     
     func toggleCompleted(onNote id: Int) {
@@ -136,8 +145,8 @@ class TodoModel {
                 let note = Note(withTitle: noteItem["title"] as! String,
                                 withDetail: noteItem["description"] as! String,
                                 withCompleted: noteItem["completed"] as! Bool,
-                                withCreatedDate: noteItem["created_at"] as! String
-                )
+                                withCreatedDate: noteItem["created_at"] as! String,
+                                withID: noteItem["id"] as! Int)
                 self.notes.append(note)
             }
 

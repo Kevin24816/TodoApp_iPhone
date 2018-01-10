@@ -12,10 +12,14 @@ class EditNoteViewController: UIViewController {
 
     var model: TodoModel?
     var reloadNotesHandler: ((Bool, Any?, Error?) -> Void)?
+    var preloadedNote: Note?
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var detailsTextField: UITextView!
     @IBOutlet weak var errorStatusLabel: UILabel!
+    
+    @IBOutlet weak var btnNoteAction: UIButton!
+    @IBOutlet weak var btnExitEditor: UIButton!
     
     @IBAction func doneCreatingPressed(_ sender: UIButton) {
         guard let title = titleTextField.text, let details = detailsTextField.text else {
@@ -28,7 +32,19 @@ class EditNoteViewController: UIViewController {
             return
         }
         
-        model?.addNote(withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
+        if preloadedNote == nil {
+            model?.addNote(withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
+        } else {
+            model?.editNote(onNoteID: (preloadedNote?.id)!, withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
+        }
+    }
+    
+    @IBAction func cancelActionPressed(_ sender: UIButton) {
+        if preloadedNote == nil {
+            performSegue(withIdentifier: "close editor", sender: nil)
+        } else {
+            model?.deleteNote(onNoteID: (preloadedNote?.id)!, viewCompletionHandler: closeEditorHandler(success:response:error:))
+        }
     }
     
     private func closeEditorHandler(success: Bool, response: Any?, error: Error?) {
@@ -46,8 +62,17 @@ class EditNoteViewController: UIViewController {
         super.viewDidLoad()
 
         guard model != nil, reloadNotesHandler != nil else {
-            print("error: model not received. From: EditNoteViewController@viewDidLoad")
             return
+        }
+        
+        if let note = preloadedNote {
+            titleTextField.text = note.title
+            detailsTextField.text = note.detail
+            btnNoteAction.setTitle("Save", for: .normal)
+            btnExitEditor.setTitle("Delete", for: .normal)
+        } else {
+            btnNoteAction.setTitle("Save", for: .normal)
+            btnExitEditor.setTitle("Discard", for: .normal)
         }
     }
     

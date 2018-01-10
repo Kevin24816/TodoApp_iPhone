@@ -11,7 +11,7 @@ import UIKit
 class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegator {
     
     func callSegueFromCell(withCellData dataobject: Any?) {
-        self.performSegue(withIdentifier: "open editor", sender: nil)
+        self.performSegue(withIdentifier: "open editor", sender: dataobject)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -57,7 +57,8 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.getModel = getTodoModel
         cell.titleText.text = note.title
         cell.detailText.text = note.detail
-
+        cell.completed = note.completed
+        cell.noteObj = note
         cell.delegate = self
         
         cell.layer.borderWidth = 1.0
@@ -91,12 +92,12 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let editorVC = segue.destination as? EditNoteViewController {
-            guard let todoModel = self.model else {
-                print("error: todoModel not stored")
-                return
-            }
-            
+        let todoModel = self.model
+        if let editorVC = segue.destination as? EditNoteViewController, let note = sender as? Note {
+            editorVC.model = todoModel
+            editorVC.reloadNotesHandler = reloadNotesHandler(success:response:error:)
+            editorVC.preloadedNote = note
+        } else if let editorVC = segue.destination as? EditNoteViewController {
             editorVC.model = todoModel
             editorVC.reloadNotesHandler = reloadNotesHandler(success:response:error:)
         }

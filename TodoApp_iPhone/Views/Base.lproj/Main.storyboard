@@ -229,7 +229,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eoC-TM-Uc7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eoC-TM-Uc7">
                                 <rect key="frame" x="0.0" y="72" width="375" height="595"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -253,29 +253,26 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jhh-bI-Itp">
                                                     <rect key="frame" x="30" y="137" width="142.5" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="s0W-DR-vuA"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal" title="Edit Note">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="doneCreatingPressed:" destination="5E7-ot-yn4" eventType="touchUpInside" id="pOK-4C-AfG"/>
+                                                        <action selector="editNotePressed:" destination="O9g-Sg-ywe" eventType="touchUpInside" id="wS2-dH-h5f"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaL-ld-jYX">
                                                     <rect key="frame" x="202.5" y="137" width="142.5" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="0.7478328339041096" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="UoF-yX-qlr"/>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="UoF-yX-qlr"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal" title="Complete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="doneCreatingPressed:" destination="5E7-ot-yn4" eventType="touchUpInside" id="NQV-bT-a4Q"/>
+                                                        <action selector="toggleCompletePressed:" destination="O9g-Sg-ywe" eventType="touchUpInside" id="Ug5-Tn-20x"/>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ThK-V3-32a">
@@ -303,6 +300,7 @@
                                                 <constraint firstItem="9CJ-15-FGU" firstAttribute="top" secondItem="ThK-V3-32a" secondAttribute="bottom" id="3do-r8-Y5R"/>
                                                 <constraint firstAttribute="bottom" secondItem="yaL-ld-jYX" secondAttribute="bottom" constant="8" id="5Ig-O8-fhN"/>
                                                 <constraint firstItem="ThK-V3-32a" firstAttribute="leading" secondItem="rmB-BV-LSh" secondAttribute="leading" constant="10" id="64j-1y-Dv8"/>
+                                                <constraint firstItem="Jhh-bI-Itp" firstAttribute="height" secondItem="yaL-ld-jYX" secondAttribute="height" id="FpU-Vh-9Iu"/>
                                                 <constraint firstAttribute="trailing" secondItem="ThK-V3-32a" secondAttribute="trailing" constant="10" id="JjQ-jP-Cit"/>
                                                 <constraint firstAttribute="trailing" secondItem="9CJ-15-FGU" secondAttribute="trailing" constant="10" id="ZLQ-hI-1l5"/>
                                                 <constraint firstItem="yaL-ld-jYX" firstAttribute="top" secondItem="9CJ-15-FGU" secondAttribute="bottom" constant="8" id="doZ-yU-iDs"/>
@@ -319,8 +317,11 @@
                                             <constraint firstAttribute="bottom" secondItem="Jhh-bI-Itp" secondAttribute="bottom" constant="8" id="XBw-Vh-o1w"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="btnCompleted" destination="yaL-ld-jYX" id="ZfX-YT-bUt"/>
+                                            <outlet property="contentView" destination="rmB-BV-LSh" id="3Rd-j5-ms9"/>
                                             <outlet property="detailText" destination="9CJ-15-FGU" id="cbU-tZ-xJw"/>
                                             <outlet property="titleText" destination="6OA-oi-tOf" id="FtE-Fe-l7X"/>
+                                            <outlet property="titleView" destination="ThK-V3-32a" id="tuW-ee-pUm"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -414,7 +415,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="doneCreatingPressed:" destination="5E7-ot-yn4" eventType="touchUpInside" id="ebA-Fz-i2K"/>
+                                    <action selector="cancelActionPressed:" destination="5E7-ot-yn4" eventType="touchUpInside" id="v6T-UL-vUs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -445,6 +446,8 @@
                         <viewLayoutGuide key="safeArea" id="usy-ag-uIr"/>
                     </view>
                     <connections>
+                        <outlet property="btnExitEditor" destination="ff8-Hh-eFl" id="ogE-4X-Eb7"/>
+                        <outlet property="btnNoteAction" destination="WHh-wr-fAU" id="fGc-BC-J7G"/>
                         <outlet property="detailsTextField" destination="cdr-CD-ylj" id="B7k-w5-XkO"/>
                         <outlet property="errorStatusLabel" destination="GKC-RN-HHb" id="Wyi-Sr-e7P"/>
                         <outlet property="titleTextField" destination="hTA-UG-uPY" id="ah7-11-wqx"/>
@@ -457,7 +460,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4Fa-iZ-gxT"/>
         <segue reference="Omj-K2-2d5"/>
         <segue reference="7t9-VU-ykJ"/>
     </inferredMetricsTieBreakers>
