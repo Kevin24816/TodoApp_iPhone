@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Provides tools faciliating connection to API server.
 class ServerModel {
 //    static let urlAddress = "http://TodoApp.test/"
     static let urlAddress = "https://todoapp24.herokuapp.com/"

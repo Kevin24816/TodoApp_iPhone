@@ -80,6 +80,7 @@ class TodoModel {
         ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
     }
     
+    // Returns handler that updates the model as well as calls the view handler
     private func authHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
         let completionHandler: (Bool, Any?, Error?) -> Void = {
             success, response, error in
@@ -122,6 +123,7 @@ class TodoModel {
         return completionHandler
     }
     
+    // Handler that saves the new loaded notes as well as calls the view handler, which should update the view with the new notes.
     private func loadNotesHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
         let completionHandler: (Bool, Any?, Error?) -> Void = {
             success, response, error in

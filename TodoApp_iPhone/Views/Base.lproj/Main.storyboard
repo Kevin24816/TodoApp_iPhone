@@ -13,7 +13,7 @@
         <!--Sign In-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Sign In" id="BYZ-38-t0r" customClass="AuthenticationViewController" customModule="TodoApp_iPhone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Sign In" id="BYZ-38-t0r" customClass="AuthenticationViewController" customModule="Todo_Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,13 +22,13 @@
                                 <rect key="frame" x="10" y="72" width="355" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="username"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4ew-0O-rNo">
                                 <rect key="frame" x="10" y="110" width="355" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="password"/>
                             </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3L-OW-d62">
                                 <rect key="frame" x="168.5" y="148" width="37.5" height="21"/>
@@ -113,7 +113,7 @@
         <!--Register-->
         <scene sceneID="PVf-cp-TLm">
             <objects>
-                <viewController storyboardIdentifier="registerVC" title="Register" id="Yrm-Es-mBl" customClass="AuthenticationViewController" customModule="TodoApp_iPhone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="registerVC" title="Register" id="Yrm-Es-mBl" customClass="AuthenticationViewController" customModule="Todo_Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7IC-IJ-lfr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -122,19 +122,19 @@
                                 <rect key="frame" x="10" y="110" width="355" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password Confirmation" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NMB-fJ-aAS">
                                 <rect key="frame" x="10" y="148" width="355" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8uv-Of-vNZ">
                                 <rect key="frame" x="10" y="72" width="355" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="username"/>
                             </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kzb-1c-5rP">
                                 <rect key="frame" x="168.5" y="186" width="37.5" height="21"/>
@@ -205,7 +205,7 @@
         <!--Notes-->
         <scene sceneID="gDN-Ou-ZKH">
             <objects>
-                <viewController title="Notes" id="6kH-qg-QiH" customClass="NotesViewController" customModule="TodoApp_iPhone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Notes" id="6kH-qg-QiH" customClass="NotesViewController" customModule="Todo_Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eO7-vd-kbA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -233,7 +233,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="595"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="noteCell" rowHeight="175" id="O9g-Sg-ywe" customClass="NoteCell" customModule="TodoApp_iPhone" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="noteCell" rowHeight="175" id="O9g-Sg-ywe" customClass="NoteCell" customModule="Todo_Notes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O9g-Sg-ywe" id="rmB-BV-LSh">
@@ -357,7 +357,7 @@
         <!--Edit Note View Controller-->
         <scene sceneID="ZpG-ov-3e6">
             <objects>
-                <viewController id="5E7-ot-yn4" customClass="EditNoteViewController" customModule="TodoApp_iPhone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5E7-ot-yn4" customClass="EditNoteViewController" customModule="Todo_Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hwh-tL-G2I">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -450,6 +450,7 @@
                         <outlet property="btnNoteAction" destination="WHh-wr-fAU" id="fGc-BC-J7G"/>
                         <outlet property="detailsTextField" destination="cdr-CD-ylj" id="B7k-w5-XkO"/>
                         <outlet property="errorStatusLabel" destination="GKC-RN-HHb" id="Wyi-Sr-e7P"/>
+                        <outlet property="navigationTitle" destination="wcQ-9p-NUI" id="dYO-tV-m3Z"/>
                         <outlet property="titleTextField" destination="hTA-UG-uPY" id="ah7-11-wqx"/>
                         <segue destination="6kH-qg-QiH" kind="show" identifier="close editor" id="Omj-K2-2d5"/>
                     </connections>
@@ -460,8 +461,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4Fa-iZ-gxT"/>
-        <segue reference="Omj-K2-2d5"/>
-        <segue reference="7t9-VU-ykJ"/>
+        <segue reference="I9M-rk-FiL"/>
+        <segue reference="szl-nA-ho1"/>
     </inferredMetricsTieBreakers>
 </document>

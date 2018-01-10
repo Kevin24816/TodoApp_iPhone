@@ -17,6 +17,7 @@ class EditNoteViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var detailsTextField: UITextView!
     @IBOutlet weak var errorStatusLabel: UILabel!
+    @IBOutlet weak var navigationTitle: UINavigationItem!
     
     @IBOutlet weak var btnNoteAction: UIButton!
     @IBOutlet weak var btnExitEditor: UIButton!
@@ -76,11 +77,13 @@ class EditNoteViewController: UIViewController {
         
         // check if this segue is for editing or making a new note
         if let note = preloadedNote {
+            navigationTitle.title = "Edit Note"
             titleTextField.text = note.title
             detailsTextField.text = note.detail
             btnNoteAction.setTitle("Save", for: .normal)
             btnExitEditor.setTitle("Delete", for: .normal)
         } else {
+            navigationTitle.title = "Create Note"
             btnNoteAction.setTitle("Save", for: .normal)
             btnExitEditor.setTitle("Discard", for: .normal)
         }
