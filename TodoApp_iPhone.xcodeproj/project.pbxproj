@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0AD2D6C01FF3890E005C1945 /* TodoApp_iPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoApp_iPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AD2D6C01FF3890E005C1945 /* Todo Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Todo Notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD2D6C31FF3890E005C1945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AD2D6C81FF3890E005C1945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0AD2D6CA1FF3890E005C1945 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		0AD2D6C11FF3890E005C1945 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0AD2D6C01FF3890E005C1945 /* TodoApp_iPhone.app */,
+				0AD2D6C01FF3890E005C1945 /* Todo Notes.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,7 +126,7 @@
 			);
 			name = TodoApp_iPhone;
 			productName = TodoApp_iPhone;
-			productReference = 0AD2D6C01FF3890E005C1945 /* TodoApp_iPhone.app */;
+			productReference = 0AD2D6C01FF3890E005C1945 /* Todo Notes.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -331,7 +331,7 @@
 				INFOPLIST_FILE = TodoApp_iPhone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "kevin.TodoApp-iPhone";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Todo Notes";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -346,7 +346,7 @@
 				INFOPLIST_FILE = TodoApp_iPhone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "kevin.TodoApp-iPhone";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Todo Notes";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
