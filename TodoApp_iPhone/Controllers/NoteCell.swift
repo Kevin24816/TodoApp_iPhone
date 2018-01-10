@@ -41,10 +41,15 @@ class NoteCell: UITableViewCell {
     }
 
     @IBAction func toggleCompletePressed(_ sender: UIButton) {
-        if completed == true {
-            completed = false
+        let model = getModel!()
+        model.toggleCompleted(onNote: (noteObj?.id)!, withCurrentState: completed!, viewCompletionHandler: toggleCompleteHandler(success:response:error:))
+    }
+    
+    func toggleCompleteHandler(success: Bool, response: Any?, error: Error?) {
+        if success {
+            completed = !completed!
         } else {
-            completed = true
+            print("error from: NoteCell@toggleCompleteHandler")
         }
     }
     

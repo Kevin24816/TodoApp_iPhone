@@ -55,7 +55,6 @@ class TodoModel {
     }
     
     func editNote(onNoteID id: Int, withTitle title: String, withDetail detail: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
-        print("CHECK SENDING EDIT NOTE REQUEST ON NOTE \(id)")
         let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
         let requestBody = ["title": title, "description": detail]
         let request = ServerModel.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "PUT", withRequestHeaders: requestHeaders, withRequestBody: requestBody)
@@ -65,7 +64,6 @@ class TodoModel {
     }
     
     func deleteNote(onNoteID id: Int, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
-        print("CHECK SENDING DELETE REQUEST ON NOTE \(id)")
         let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
         let request = ServerModel.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "DELETE", withRequestHeaders: requestHeaders, withRequestBody: nil)
         
@@ -73,8 +71,13 @@ class TodoModel {
         ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
     }
     
-    func toggleCompleted(onNote id: Int) {
-        notes[id].toggleCompleted()
+    func toggleCompleted(onNote id: Int, withCurrentState state: Bool, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
+        let requestBody = ["completed" : !state]
+        let request = ServerModel.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "PUT", withRequestHeaders: requestHeaders, withRequestBody: requestBody)
+        
+        let completionHandler = saveNoteHandlerFactory(viewCompletionHandler: viewHandler)
+        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
     }
     
     private func authHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {

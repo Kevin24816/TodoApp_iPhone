@@ -60,10 +60,17 @@ class EditNoteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         guard model != nil, reloadNotesHandler != nil else {
             return
         }
+        
+        let toolbar = UIToolbar()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneTyping))
+        toolbar.setItems([doneButton], animated: false)
+        toolbar.sizeToFit()
+        titleTextField.inputAccessoryView = toolbar
+        detailsTextField.inputAccessoryView = toolbar
         
         if let note = preloadedNote {
             titleTextField.text = note.title
@@ -74,6 +81,10 @@ class EditNoteViewController: UIViewController {
             btnNoteAction.setTitle("Save", for: .normal)
             btnExitEditor.setTitle("Discard", for: .normal)
         }
+    }
+    
+    @objc func doneTyping() {
+        view.endEditing(true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
