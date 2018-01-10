@@ -54,8 +54,6 @@ class AuthenticationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     // view handler to handle segueing to the notes view once authentication has been confirmed by server
@@ -76,13 +74,9 @@ class AuthenticationViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let notesVC = segue.destination as? NotesViewController {
             guard let todoModel = self.todoModel else {
-                print("error: todoModel not stored")
                 return
             }
-            
             notesVC.model = todoModel
-        } else {
-            print("error: notesVC was unable to be obtained in segue. from: AuthenticationViewController@prepare(for segue)")
         }
     }
 }

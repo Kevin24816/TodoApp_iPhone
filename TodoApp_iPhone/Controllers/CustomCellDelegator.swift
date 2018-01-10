@@ -8,6 +8,7 @@
 
 import Foundation
 
+// protocol allowing for button in table view cell to perform segue
 protocol CustomCellDelegator {
     func callSegueFromCell(withCellData data: Any?)
 }

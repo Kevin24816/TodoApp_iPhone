@@ -32,6 +32,7 @@ class EditNoteViewController: UIViewController {
             return
         }
         
+        // check if this segue is for editing or making a new note
         if preloadedNote == nil {
             model?.addNote(withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
         } else {
@@ -65,6 +66,7 @@ class EditNoteViewController: UIViewController {
             return
         }
         
+        // customize keyboard hiding
         let toolbar = UIToolbar()
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneTyping))
         toolbar.setItems([doneButton], animated: false)
@@ -72,6 +74,7 @@ class EditNoteViewController: UIViewController {
         titleTextField.inputAccessoryView = toolbar
         detailsTextField.inputAccessoryView = toolbar
         
+        // check if this segue is for editing or making a new note
         if let note = preloadedNote {
             titleTextField.text = note.title
             detailsTextField.text = note.detail
@@ -90,13 +93,10 @@ class EditNoteViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let noteVC = segue.destination as? NotesViewController {
             guard let todoModel = self.model else {
-                print("error: todoModel not stored")
                 return
             }
             
             noteVC.model = todoModel
-        } else {
-            print("error: notesVC was unable to be obtained in segue. from: EditNoteViewController@prepare(for segue)")
         }
     }
 

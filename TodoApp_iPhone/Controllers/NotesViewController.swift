@@ -52,7 +52,7 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
         
-        // create the cell here
+        // create the cell from the note object stored in the model
         let note = model!.getNotes()[indexPath.row]
         cell.getModel = getTodoModel
         cell.titleText.text = note.title
@@ -66,6 +66,7 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
+    // Segues back to sign in view once user is signed out
     private func signoutHandler(success: Bool, response: Any?, error: Error?) {
         if !success {
             print("error: server signout failed. from: NotesViewController@signoutHandler. Trace: \(error!.localizedDescription)")
