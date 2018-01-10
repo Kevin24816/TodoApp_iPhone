@@ -1,2 +1,2 @@
 # TodoApp_iPhone
-The iPhone app that utilizes the TodoApp backend
+The iPhone app that utilizes the TodoApp api server.
