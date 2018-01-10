@@ -11,25 +11,24 @@ import UIKit
 class NoteCell: UITableViewCell {
     
     var getModel: (() -> TodoModel)?
+    var delegate: CustomCellDelegator!
     
     @IBOutlet weak var detailText: UITextView!
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var btnCompleted: UIButton!
     
-    @IBAction func editPressed(_ sender: UIButton) {
-//        performSegue(withIdentifier: "open editor", sender: nil)
-    }
     
-    @IBAction func deletePressed(_ sender: UIButton) {
-        print("delete pressed")
-    }
+    
+//    if(self.delegate != nil){ //Just to be safe.
+//        self.delegate.callSegueFromCell(withCellData: nil)
+//    }
     
     @IBAction func toggleCompletedPressed(_ sender: UIButton) {
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

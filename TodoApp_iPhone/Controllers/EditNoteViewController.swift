@@ -21,8 +21,10 @@ class EditNoteViewController: UIViewController {
         guard let title = titleTextField.text, let details = detailsTextField.text else {
             return
         }
+        
         guard !title.isEmpty, !details.isEmpty else {
-            errorStatusLabel.text = "Please fill out a title and description."
+            errorStatusLabel.text = "Please fill in the title and description."
+            errorStatusLabel.isHidden = false
             return
         }
         

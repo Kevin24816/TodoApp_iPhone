@@ -8,7 +8,15 @@
 
 import UIKit
 
-class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegator {
+    
+    func callSegueFromCell(withCellData dataobject: Any?) {
+        self.performSegue(withIdentifier: "open editor", sender: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
     
     @IBOutlet weak var tableView: UITableView!
     var model: TodoModel?
@@ -49,7 +57,11 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.getModel = getTodoModel
         cell.titleText.text = note.title
         cell.detailText.text = note.detail
-        cell.btnCompleted.setTitle(note.completed == true ? "☑️" : "🔘", for: .normal)
+
+        cell.delegate = self
+        
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1)
         return cell
     }
     
@@ -89,4 +101,5 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
             editorVC.reloadNotesHandler = reloadNotesHandler(success:response:error:)
         }
     }
+    
 }
