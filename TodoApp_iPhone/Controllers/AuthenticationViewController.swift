@@ -54,6 +54,15 @@ class AuthenticationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let signInPassword = signInPasswordField {
+            signInPassword.isSecureTextEntry = true
+        }
+        if let signUpPassword = signUpPasswordField {
+            signUpPassword.isSecureTextEntry = true
+        }
+        if let signUpPasswordConf = signUpPasswordConfField {
+            signUpPasswordConf.isSecureTextEntry = true
+        }
     }
 
     // view handler to handle segueing to the notes view once authentication has been confirmed by server
