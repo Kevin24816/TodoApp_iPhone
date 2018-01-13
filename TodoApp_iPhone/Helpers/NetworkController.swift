@@ -10,9 +10,8 @@ import Foundation
 
 class TodoModel {
     
-    var apiToken: String?
-    var username: String?
-    var notes = [Note]()
+
+
     
     func login(username: String, password: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
         let requestBody: [String: Any] = ["username": username, "password": password]

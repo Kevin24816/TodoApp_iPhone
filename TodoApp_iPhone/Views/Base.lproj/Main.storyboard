@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -100,9 +99,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Sign In" id="HoJ-RQ-ihP"/>
                     <connections>
-                        <outlet property="signInPasswordField" destination="4ew-0O-rNo" id="b0E-xv-KeM"/>
-                        <outlet property="signInStatus" destination="h3L-OW-d62" id="AJD-rc-t5o"/>
-                        <outlet property="signInUsernameField" destination="uuD-GS-6Ux" id="T11-d2-nlM"/>
+                        <outlet property="signInPasswordTextField" destination="4ew-0O-rNo" id="KFe-As-O8e"/>
+                        <outlet property="signInStatusLabel" destination="h3L-OW-d62" id="5VA-9y-C5r"/>
+                        <outlet property="signInUsernameTextField" destination="uuD-GS-6Ux" id="epy-R6-Ham"/>
                         <segue destination="6kH-qg-QiH" kind="show" identifier="notes" id="I9M-rk-FiL"/>
                     </connections>
                 </viewController>
@@ -461,7 +460,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="I9M-rk-FiL"/>
+        <segue reference="sSh-Qs-oHL"/>
         <segue reference="szl-nA-ho1"/>
     </inferredMetricsTieBreakers>
 </document>

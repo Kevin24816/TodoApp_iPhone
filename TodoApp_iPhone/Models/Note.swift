@@ -12,7 +12,7 @@ struct Note {
     var title: String
     var detail: String
     var completed: Bool
-    var createdDate: String
+    var createdDate: String?
     var id: Int
     
     init(withTitle title: String,
@@ -25,21 +25,5 @@ struct Note {
         self.completed = completed
         self.createdDate = createdDate
         self.id = id
-    }
-    
-    mutating func toggleCompleted() {
-        if completed == false {
-            completed = true
-        } else {
-            completed = false
-        }
-    }
-    
-    mutating func setTitle(title: String) {
-        self.title = title
-    }
-    
-    mutating func setDetail(detail: String) {
-        self.detail = detail
     }
 }

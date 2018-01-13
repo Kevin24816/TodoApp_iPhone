@@ -12,9 +12,9 @@ class AuthenticationViewController: UIViewController {
     
     private var todoModel: TodoModel?
 
-    @IBOutlet weak var signInUsernameField: UITextField!
-    @IBOutlet weak var signInPasswordField: UITextField!
-    @IBOutlet weak var signInStatus: UILabel!
+    @IBOutlet weak var signInUsernameTextField: UITextField!
+    @IBOutlet weak var signInPasswordTextField: UITextField!
+    @IBOutlet weak var signInStatusLabel: UILabel!
     
     @IBOutlet weak var signUpUsernameField: UITextField!
     @IBOutlet weak var signUpPasswordField: UITextField!
@@ -22,14 +22,14 @@ class AuthenticationViewController: UIViewController {
     @IBOutlet weak var signUpStatus: UILabel!
     
     @IBAction func signinPressed(_ sender: UIButton) {
-        guard let username = signInUsernameField.text, let password = signInPasswordField.text else {
+        guard let username = signUpUsernameField.text, let password = signUpPasswordField.text else {
             print("error: text fields are nil")
             return
         }
         
         guard !username.isEmpty, !password.isEmpty else {
-            signInStatus.text = "Please fill in all fields above"
-            signInStatus.isHidden = false
+            signUpStatus.text = "Please fill in all fields above"
+            signUpStatus.isHidden = false
             return
         }
         
@@ -54,7 +54,7 @@ class AuthenticationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let signInPassword = signInPasswordField {
+        if let signInPassword = signInPasswordTextField {
             signInPassword.isSecureTextEntry = true
         }
         if let signUpPassword = signUpPasswordField {
@@ -69,8 +69,8 @@ class AuthenticationViewController: UIViewController {
     private func authHandler(success: Bool, response: Any?, error: Error?) {
         if !success {
             DispatchQueue.main.async {
-                self.signInStatus.text = "Username or password invalid"
-                self.signInStatus.isHidden = false
+                self.signInStatusLabel.text = "Username or password invalid"
+                self.signInStatusLabel.isHidden = false
             }
             return
         }

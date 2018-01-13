@@ -1,25 +1,21 @@
-//
-//  NotesViewController.swift
-//  TodoApp_iPhone
-//
-//  Created by Kevin Li on 12/31/17.
-//  Copyright © 2017 Kevin Li. All rights reserved.
-//
-
 import UIKit
 
-class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegator {
-    
-    func callSegueFromCell(withCellData dataobject: Any?) {
-        self.performSegue(withIdentifier: "open editor", sender: dataobject)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
-    }
-    
+class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
     @IBOutlet weak var tableView: UITableView!
     var model: TodoModel?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        guard let model = self.model else {
+            print("error: todo model not revceived from:NotesViewController@viewDidLoad()")
+            return
+        }
+
+        // loads the notes for the user
+        model.loadNotes(viewCompletionHandler: reloadNotesHandler(success:response:error:))
+    }
     
     @IBAction func signoutPressed(_ sender: UIBarButtonItem) {
         model?.signout(viewCompletionHandler: signoutHandler(success:response:error:))
@@ -29,16 +25,16 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         performSegue(withIdentifier: "open editor", sender: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        guard let model = self.model else {
-            print("error: todo model not revceived from:NotesViewController@viewDidLoad()")
-            return
-        }
-        
-        // loads the notes for the user
-        model.loadNotes(viewCompletionHandler: reloadNotesHandler(success:response:error:))
+
+
+    func callSegueFromCell(withCellData dataobject: Any?) {
+        self.performSegue(withIdentifier: "open editor", sender: dataobject)
+    }
+
+
+    //  TableView methods
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -54,16 +50,19 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         // create the cell from the note object stored in the model
         let note = model!.getNotes()[indexPath.row]
-        cell.getModel = getTodoModel
-        cell.titleText.text = note.title
-        cell.detailText.text = note.detail
-        cell.completed = note.completed
-        cell.noteObj = note
-        cell.delegate = self
-        
-        cell.layer.borderWidth = 1.0
-        cell.layer.borderColor = #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1)
+        cell.configureWithNote(note: note)
+        cell.btnCompleted.tag = indexPath.row
+
+        cell.btnCompleted.addTarget(self, action: #selector(completedButtonPressedForCell(sender:)), for: .touchUpInside)
         return cell
+    }
+
+    @objc func completedButtonPressedForCell(sender: UIButton) {
+        //  use the tag to reference array index
+        let note = model!.getNotes()[sender.tag]
+        model?.toggleCompleted(onNote: note.id, withCurrentState: note.completed, viewCompletionHandler: { (didUpdate, any, error) in
+            
+        })
     }
     
     // Segues back to sign in view once user is signed out

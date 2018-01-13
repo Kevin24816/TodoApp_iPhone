@@ -15,10 +15,11 @@
 		0AD2D6D81FF8DA4A005C1945 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */; };
 		0AD2D6DA1FF9D537005C1945 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6D91FF9D537005C1945 /* NoteCell.swift */; };
 		0AD2D6DC1FFA1FBD005C1945 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6DB1FFA1FBD005C1945 /* Note.swift */; };
-		0AD2D6E51FFB81CF005C1945 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6E41FFB81CF005C1945 /* TodoModel.swift */; };
+		0AD2D6E51FFB81CF005C1945 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6E41FFB81CF005C1945 /* NetworkController.swift */; };
 		0AD2D6E71FFD837E005C1945 /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6E61FFD837E005C1945 /* ServerModel.swift */; };
 		0AD2D6E92001F282005C1945 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6E82001F282005C1945 /* EditNoteViewController.swift */; };
-		0AD2D6EB2005B512005C1945 /* CustomCellDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6EA2005B512005C1945 /* CustomCellDelegator.swift */; };
+		2D8CC2B020099C530063CD6E /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CC2AF20099C530063CD6E /* AccountHelper.swift */; };
+		2D8CC2B220099CF90063CD6E /* NotesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CC2B120099CF90063CD6E /* NotesStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,10 +33,11 @@
 		0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		0AD2D6D91FF9D537005C1945 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		0AD2D6DB1FFA1FBD005C1945 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		0AD2D6E41FFB81CF005C1945 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
+		0AD2D6E41FFB81CF005C1945 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		0AD2D6E61FFD837E005C1945 /* ServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
 		0AD2D6E82001F282005C1945 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
-		0AD2D6EA2005B512005C1945 /* CustomCellDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellDelegator.swift; sourceTree = "<group>"; };
+		2D8CC2AF20099C530063CD6E /* AccountHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHelper.swift; sourceTree = "<group>"; };
+		2D8CC2B120099CF90063CD6E /* NotesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		0AD2D6C21FF3890E005C1945 /* TodoApp_iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				2D8CC2AE20099C440063CD6E /* Helpers */,
 				0AD2D6E31FFB813F005C1945 /* Views */,
 				0AD2D6E21FFB80C2005C1945 /* Models */,
 				0AD2D6E11FFB8062005C1945 /* Controllers */,
@@ -85,7 +88,6 @@
 				0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */,
 				0AD2D6D91FF9D537005C1945 /* NoteCell.swift */,
 				0AD2D6E82001F282005C1945 /* EditNoteViewController.swift */,
-				0AD2D6EA2005B512005C1945 /* CustomCellDelegator.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -94,7 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				0AD2D6DB1FFA1FBD005C1945 /* Note.swift */,
-				0AD2D6E41FFB81CF005C1945 /* TodoModel.swift */,
 				0AD2D6E61FFD837E005C1945 /* ServerModel.swift */,
 			);
 			path = Models;
@@ -107,6 +108,16 @@
 				0AD2D6C71FF3890E005C1945 /* Main.storyboard */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2D8CC2AE20099C440063CD6E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0AD2D6E41FFB81CF005C1945 /* NetworkController.swift */,
+				2D8CC2AF20099C530063CD6E /* AccountHelper.swift */,
+				2D8CC2B120099CF90063CD6E /* NotesStore.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,12 +193,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AD2D6DC1FFA1FBD005C1945 /* Note.swift in Sources */,
+				2D8CC2B220099CF90063CD6E /* NotesStore.swift in Sources */,
 				0AD2D6E71FFD837E005C1945 /* ServerModel.swift in Sources */,
 				0AD2D6E92001F282005C1945 /* EditNoteViewController.swift in Sources */,
 				0AD2D6D61FF5FD0F005C1945 /* AuthenticationViewController.swift in Sources */,
-				0AD2D6EB2005B512005C1945 /* CustomCellDelegator.swift in Sources */,
+				2D8CC2B020099C530063CD6E /* AccountHelper.swift in Sources */,
 				0AD2D6C41FF3890E005C1945 /* AppDelegate.swift in Sources */,
-				0AD2D6E51FFB81CF005C1945 /* TodoModel.swift in Sources */,
+				0AD2D6E51FFB81CF005C1945 /* NetworkController.swift in Sources */,
 				0AD2D6D81FF8DA4A005C1945 /* NotesViewController.swift in Sources */,
 				0AD2D6DA1FF9D537005C1945 /* NoteCell.swift in Sources */,
 			);
@@ -327,8 +339,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GPS49332QJ;
+				DEVELOPMENT_TEAM = SU77JHQF98;
 				INFOPLIST_FILE = TodoApp_iPhone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "kevin.TodoApp-iPhone";
 				PRODUCT_NAME = "Todo Notes";
@@ -342,8 +355,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GPS49332QJ;
+				DEVELOPMENT_TEAM = SU77JHQF98;
 				INFOPLIST_FILE = TodoApp_iPhone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "kevin.TodoApp-iPhone";
 				PRODUCT_NAME = "Todo Notes";
