@@ -10,7 +10,6 @@ import UIKit
 
 class EditNoteViewController: UIViewController {
 
-    var reloadNotesHandler: ((Bool, Any?, Error?) -> Void)?
     var preloadedNote: Note?
     
     @IBOutlet weak var titleTextField: UITextField!
@@ -34,9 +33,9 @@ class EditNoteViewController: UIViewController {
         
         // check if this segue is for editing or making a new note
         if preloadedNote == nil {
-            NetworkController.addNote(withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
+            NotesController.addNote(withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
         } else {
-            NetworkController.editNote(onNoteID: (preloadedNote?.id)!, withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
+            NotesController.editNote(onNoteID: (preloadedNote?.id)!, withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
         }
     }
     
@@ -44,7 +43,7 @@ class EditNoteViewController: UIViewController {
         if preloadedNote == nil {
             performSegue(withIdentifier: "close editor", sender: nil)
         } else {
-            NetworkController.deleteNote(onNoteID: (preloadedNote?.id)!, viewCompletionHandler: closeEditorHandler(success:response:error:))
+            NotesController.deleteNote(onNoteID: (preloadedNote?.id)!, viewCompletionHandler: closeEditorHandler(success:response:error:))
         }
     }
     
@@ -54,17 +53,12 @@ class EditNoteViewController: UIViewController {
         }
         
         DispatchQueue.main.async {
-            self.reloadNotesHandler!(true, nil, nil)
             self.performSegue(withIdentifier: "close editor", sender: nil)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard reloadNotesHandler != nil else {
-            return
-        }
         
         // customize keyboard hiding
         let toolbar = UIToolbar()
@@ -91,9 +85,4 @@ class EditNoteViewController: UIViewController {
     @objc func doneTyping() {
         view.endEditing(true)
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//    }
-
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A830658200F27380080E653 /* NotesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A830657200F27380080E653 /* NotesController.swift */; };
 		0AD2D6C41FF3890E005C1945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6C31FF3890E005C1945 /* AppDelegate.swift */; };
 		0AD2D6C91FF3890E005C1945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AD2D6C71FF3890E005C1945 /* Main.storyboard */; };
 		0AD2D6CB1FF3890E005C1945 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AD2D6CA1FF3890E005C1945 /* Assets.xcassets */; };
@@ -15,7 +16,7 @@
 		0AD2D6D81FF8DA4A005C1945 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */; };
 		0AD2D6DA1FF9D537005C1945 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6D91FF9D537005C1945 /* NoteCell.swift */; };
 		0AD2D6DC1FFA1FBD005C1945 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6DB1FFA1FBD005C1945 /* Note.swift */; };
-		0AD2D6E51FFB81CF005C1945 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6E41FFB81CF005C1945 /* NetworkController.swift */; };
+		0AD2D6E51FFB81CF005C1945 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6E41FFB81CF005C1945 /* AuthenticationController.swift */; };
 		0AD2D6E71FFD837E005C1945 /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6E61FFD837E005C1945 /* RequestHelper.swift */; };
 		0AD2D6E92001F282005C1945 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2D6E82001F282005C1945 /* EditNoteViewController.swift */; };
 		2D8CC2B020099C530063CD6E /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CC2AF20099C530063CD6E /* AccountHelper.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A830657200F27380080E653 /* NotesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesController.swift; sourceTree = "<group>"; };
 		0AD2D6C01FF3890E005C1945 /* Todo Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Todo Notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD2D6C31FF3890E005C1945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AD2D6C81FF3890E005C1945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -33,7 +35,7 @@
 		0AD2D6D71FF8DA4A005C1945 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		0AD2D6D91FF9D537005C1945 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		0AD2D6DB1FFA1FBD005C1945 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		0AD2D6E41FFB81CF005C1945 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		0AD2D6E41FFB81CF005C1945 /* AuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 		0AD2D6E61FFD837E005C1945 /* RequestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHelper.swift; sourceTree = "<group>"; };
 		0AD2D6E82001F282005C1945 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
 		2D8CC2AF20099C530063CD6E /* AccountHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHelper.swift; sourceTree = "<group>"; };
@@ -113,9 +115,10 @@
 			isa = PBXGroup;
 			children = (
 				0AD2D6E61FFD837E005C1945 /* RequestHelper.swift */,
-				0AD2D6E41FFB81CF005C1945 /* NetworkController.swift */,
+				0AD2D6E41FFB81CF005C1945 /* AuthenticationController.swift */,
 				2D8CC2AF20099C530063CD6E /* AccountHelper.swift */,
 				2D8CC2B120099CF90063CD6E /* NotesStore.swift */,
+				0A830657200F27380080E653 /* NotesController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -195,11 +198,12 @@
 				0AD2D6DC1FFA1FBD005C1945 /* Note.swift in Sources */,
 				2D8CC2B220099CF90063CD6E /* NotesStore.swift in Sources */,
 				0AD2D6E71FFD837E005C1945 /* RequestHelper.swift in Sources */,
+				0A830658200F27380080E653 /* NotesController.swift in Sources */,
 				0AD2D6E92001F282005C1945 /* EditNoteViewController.swift in Sources */,
 				0AD2D6D61FF5FD0F005C1945 /* AuthenticationViewController.swift in Sources */,
 				2D8CC2B020099C530063CD6E /* AccountHelper.swift in Sources */,
 				0AD2D6C41FF3890E005C1945 /* AppDelegate.swift in Sources */,
-				0AD2D6E51FFB81CF005C1945 /* NetworkController.swift in Sources */,
+				0AD2D6E51FFB81CF005C1945 /* AuthenticationController.swift in Sources */,
 				0AD2D6D81FF8DA4A005C1945 /* NotesViewController.swift in Sources */,
 				0AD2D6DA1FF9D537005C1945 /* NoteCell.swift in Sources */,
 			);

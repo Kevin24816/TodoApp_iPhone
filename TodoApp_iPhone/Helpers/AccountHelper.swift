@@ -21,5 +21,9 @@ class AccountHelper {
     func getToken() -> String {
         return token!
     }
+    
+    static func getRequestHeader() -> [String: String] {
+        return ["Authorization": "Bearer \(AccountHelper.sharedInstance.getToken())"]
+    }
 }
 

@@ -19,6 +19,19 @@ class AuthenticationViewController: UIViewController {
     @IBOutlet weak var signUpPasswordConfTextField: UITextField!
     @IBOutlet weak var signUpStatusLabel: UILabel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let signInPassword = signInPasswordTextField {
+            signInPassword.isSecureTextEntry = true
+        }
+        if let signUpPassword = signUpPasswordTextField {
+            signUpPassword.isSecureTextEntry = true
+        }
+        if let signUpPasswordConf = signUpPasswordConfTextField {
+            signUpPasswordConf.isSecureTextEntry = true
+        }
+    }
+    
     @IBAction func signinPressed(_ sender: UIButton) {
         guard let username = signInUsernameTextField.text, let password = signInPasswordTextField.text else {
             print("error: text fields are nil")
@@ -31,8 +44,7 @@ class AuthenticationViewController: UIViewController {
             return
         }
         
-//        print("sign in pressed: )
-        NetworkController.login(username: username, password: password, viewCompletionHandler: authHandler(success:response:error:))
+        AuthenticationController.login(username: username, password: password, viewCompletionHandler: authHandler(success:response:error:))
     }
     
     @IBAction func signupPressed(_ sender: UIButton) {
@@ -46,20 +58,7 @@ class AuthenticationViewController: UIViewController {
             return
         }
         
-        NetworkController.signup(username: username, password: password, passwordConf: password_conf, viewCompletionHandler: authHandler(success:response:error:))
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let signInPassword = signInPasswordTextField {
-            signInPassword.isSecureTextEntry = true
-        }
-        if let signUpPassword = signUpPasswordTextField {
-            signUpPassword.isSecureTextEntry = true
-        }
-        if let signUpPasswordConf = signUpPasswordConfTextField {
-            signUpPasswordConf.isSecureTextEntry = true
-        }
+        AuthenticationController.signup(username: username, password: password, passwordConf: password_conf, viewCompletionHandler: authHandler(success:response:error:))
     }
 
     // view handler to handle segueing to the notes view once authentication has been confirmed by server
@@ -84,5 +83,4 @@ class AuthenticationViewController: UIViewController {
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
 }
