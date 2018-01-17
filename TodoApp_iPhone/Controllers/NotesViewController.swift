@@ -3,22 +3,24 @@ import UIKit
 class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    var model: TodoModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let model = self.model else {
-            print("error: todo model not revceived from:NotesViewController@viewDidLoad()")
-            return
-        }
-
-        // loads the notes for the user
-        model.loadNotes(viewCompletionHandler: reloadNotesHandler(success:response:error:))
+        refreshNotes()
+    }
+    
+    // Fetches the notes from the server and updates view with new notes.
+    private func refreshNotes() {
+        NetworkController.loadNotes(viewCompletionHandler: { (didUpdate, any, error) in
+            if didUpdate {
+                self.tableView.reloadData()
+            }
+        })
     }
     
     @IBAction func signoutPressed(_ sender: UIBarButtonItem) {
-        model?.signout(viewCompletionHandler: signoutHandler(success:response:error:))
+        NetworkController.signout(viewCompletionHandler: signoutHandler(success:response:error:))
     }
     
     @IBAction func addNotePressed(_ sender: UIBarButtonItem) {
@@ -42,26 +44,37 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model!.getNotes().count
+        return NotesStore.getNotes().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
         
         // create the cell from the note object stored in the model
-        let note = model!.getNotes()[indexPath.row]
+        let note = NotesStore.getNotes()[indexPath.row]
         cell.configureWithNote(note: note)
-        cell.btnCompleted.tag = indexPath.row
-
-        cell.btnCompleted.addTarget(self, action: #selector(completedButtonPressedForCell(sender:)), for: .touchUpInside)
+        
+        cell.completeButton.tag = indexPath.row
+        cell.completeButton.addTarget(self, action: #selector(completedButtonPressedForCell(sender:)), for: .touchUpInside)
+        
+        cell.editButton.tag = indexPath.row
+        cell.editButton.addTarget(self, action: #selector(editButtonPressedForCell(sender:)), for: .touchUpInside)
         return cell
+    }
+    
+    @objc func editButtonPressedForCell(sender: UIButton) {
+        let note = NotesStore.sharedInstance.notes[sender.tag]
+        performSegue(withIdentifier: "open editor", sender: note)
     }
 
     @objc func completedButtonPressedForCell(sender: UIButton) {
         //  use the tag to reference array index
-        let note = model!.getNotes()[sender.tag]
-        model?.toggleCompleted(onNote: note.id, withCurrentState: note.completed, viewCompletionHandler: { (didUpdate, any, error) in
-            
+        let note = NotesStore.sharedInstance.notes[sender.tag]
+        NetworkController.toggleCompleted(onNote: note.id, withCurrentState: note.completed, viewCompletionHandler: { (didUpdate, any, error) in
+            if didUpdate {
+                NotesStore.sharedInstance.notes[sender.tag].completed = !note.completed
+                self.tableView.reloadData()
+            }
         })
     }
     
@@ -76,30 +89,17 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    /*
-     Reloads the notes for the user.
-     */
-    private func reloadNotesHandler(success: Bool, response: Any?, error: Error?) {
-        if !success {
-            print("error: reload notes handler failed. from: NotesViewController@loadNotesHandler. Trace:\(error!.localizedDescription)")
-            return
-        }
-        tableView.reloadData()
-    }
-    
-    private func getTodoModel() -> TodoModel {
-        return model!
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let todoModel = self.model
-        if let editorVC = segue.destination as? EditNoteViewController, let note = sender as? Note {
-            editorVC.model = todoModel
-            editorVC.reloadNotesHandler = reloadNotesHandler(success:response:error:)
-            editorVC.preloadedNote = note
-        } else if let editorVC = segue.destination as? EditNoteViewController {
-            editorVC.model = todoModel
-            editorVC.reloadNotesHandler = reloadNotesHandler(success:response:error:)
+        if let editorVC = segue.destination as? EditNoteViewController {
+            editorVC.reloadNotesHandler = { (didUpdate, any, error) in
+                if didUpdate {
+                    self.tableView.reloadData()
+                }
+            }
+            
+            if let note = sender as? Note {
+                editorVC.preloadedNote = note
+            }
         }
     }
     

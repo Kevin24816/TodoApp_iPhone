@@ -9,47 +9,44 @@
 import UIKit
 
 class AuthenticationViewController: UIViewController {
-    
-    private var todoModel: TodoModel?
 
     @IBOutlet weak var signInUsernameTextField: UITextField!
     @IBOutlet weak var signInPasswordTextField: UITextField!
     @IBOutlet weak var signInStatusLabel: UILabel!
     
-    @IBOutlet weak var signUpUsernameField: UITextField!
-    @IBOutlet weak var signUpPasswordField: UITextField!
-    @IBOutlet weak var signUpPasswordConfField: UITextField!
-    @IBOutlet weak var signUpStatus: UILabel!
+    @IBOutlet weak var signUpUsernameTextField: UITextField!
+    @IBOutlet weak var signUpPasswordTextField: UITextField!
+    @IBOutlet weak var signUpPasswordConfTextField: UITextField!
+    @IBOutlet weak var signUpStatusLabel: UILabel!
     
     @IBAction func signinPressed(_ sender: UIButton) {
-        guard let username = signUpUsernameField.text, let password = signUpPasswordField.text else {
+        guard let username = signInUsernameTextField.text, let password = signInPasswordTextField.text else {
             print("error: text fields are nil")
             return
         }
         
         guard !username.isEmpty, !password.isEmpty else {
-            signUpStatus.text = "Please fill in all fields above"
-            signUpStatus.isHidden = false
+            signInStatusLabel.text = "Please fill in all fields above"
+            signInStatusLabel.isHidden = false
             return
         }
         
-        self.todoModel = TodoModel()
-        self.todoModel!.login(username: username, password: password, viewCompletionHandler: authHandler(success:response:error:))
+//        print("sign in pressed: )
+        NetworkController.login(username: username, password: password, viewCompletionHandler: authHandler(success:response:error:))
     }
     
     @IBAction func signupPressed(_ sender: UIButton) {
-        guard let username = signUpUsernameField.text, let password = signUpPasswordField.text, let password_conf = signUpPasswordConfField.text else {
+        guard let username = signUpUsernameTextField.text, let password = signUpPasswordTextField.text, let password_conf = signUpPasswordConfTextField.text else {
             return
         }
         
         guard !username.isEmpty, !password.isEmpty, !password_conf.isEmpty else {
-            signUpStatus.text = "Please fill in all fields above"
-            signUpStatus.isHidden = false
+            signUpStatusLabel.text = "Please fill in all fields above"
+            signUpStatusLabel.isHidden = false
             return
         }
         
-        self.todoModel = TodoModel()
-        self.todoModel!.signup(username: username, password: password, passwordConf: password_conf, viewCompletionHandler: authHandler(success:response:error:))
+        NetworkController.signup(username: username, password: password, passwordConf: password_conf, viewCompletionHandler: authHandler(success:response:error:))
     }
     
     override func viewDidLoad() {
@@ -57,10 +54,10 @@ class AuthenticationViewController: UIViewController {
         if let signInPassword = signInPasswordTextField {
             signInPassword.isSecureTextEntry = true
         }
-        if let signUpPassword = signUpPasswordField {
+        if let signUpPassword = signUpPasswordTextField {
             signUpPassword.isSecureTextEntry = true
         }
-        if let signUpPasswordConf = signUpPasswordConfField {
+        if let signUpPasswordConf = signUpPasswordConfTextField {
             signUpPasswordConf.isSecureTextEntry = true
         }
     }
@@ -69,8 +66,15 @@ class AuthenticationViewController: UIViewController {
     private func authHandler(success: Bool, response: Any?, error: Error?) {
         if !success {
             DispatchQueue.main.async {
-                self.signInStatusLabel.text = "Username or password invalid"
-                self.signInStatusLabel.isHidden = false
+                if self.signInStatusLabel != nil {
+                    self.signInStatusLabel.text = "Username or password invalid"
+                    self.signInStatusLabel.isHidden = false
+                }
+                
+                if self.signUpStatusLabel != nil {
+                    self.signUpStatusLabel.text = "Username or password invalid"
+                    self.signUpStatusLabel.isHidden = false
+                }
             }
             return
         }
@@ -80,12 +84,5 @@ class AuthenticationViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let notesVC = segue.destination as? NotesViewController {
-            guard let todoModel = self.todoModel else {
-                return
-            }
-            notesVC.model = todoModel
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
 }

@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+class NotesStore {
+    public static var sharedInstance = NotesStore()
+    var notes: [Note] = []
+    
+    fileprivate init() {
+        
+    }
+    
+    static func getNotes() -> [Note] {
+        return NotesStore.sharedInstance.notes
+    }
+}

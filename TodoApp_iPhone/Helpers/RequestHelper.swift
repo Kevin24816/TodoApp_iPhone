@@ -9,7 +9,7 @@
 import Foundation
 
 // Provides tools faciliating connection to API server.
-class ServerModel {
+class RequestHelper {
 //    static let urlAddress = "http://TodoApp.test/"
     static let urlAddress = "https://todoapp24.herokuapp.com/"
     
@@ -69,7 +69,7 @@ class ServerModel {
                         completion(true, sessionData, nil)
                     }
                 } catch let error as NSError {
-                    print("Error: failed to parse json. From: ServerModel@sendHTTPRequest. Description: \(error.localizedDescription)")
+                    print("Error: failed to parse json. From: RequestHelper@sendHTTPRequest. Description: \(error.localizedDescription)")
                     completion(false, nil, error)
                 }
             }

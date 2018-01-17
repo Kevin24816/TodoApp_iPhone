@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -190,10 +190,10 @@
                         <viewLayoutGuide key="safeArea" id="dXB-Uq-d6q"/>
                     </view>
                     <connections>
-                        <outlet property="signUpPasswordConfField" destination="NMB-fJ-aAS" id="QqW-qu-qZW"/>
-                        <outlet property="signUpPasswordField" destination="YTt-7A-Ffc" id="2x7-uZ-uoR"/>
-                        <outlet property="signUpStatus" destination="Kzb-1c-5rP" id="PGn-RP-tmd"/>
-                        <outlet property="signUpUsernameField" destination="8uv-Of-vNZ" id="ZXF-y8-KNf"/>
+                        <outlet property="signUpPasswordConfTextField" destination="NMB-fJ-aAS" id="QqW-qu-qZW"/>
+                        <outlet property="signUpPasswordTextField" destination="YTt-7A-Ffc" id="2x7-uZ-uoR"/>
+                        <outlet property="signUpStatusLabel" destination="Kzb-1c-5rP" id="PGn-RP-tmd"/>
+                        <outlet property="signUpUsernameTextField" destination="8uv-Of-vNZ" id="ZXF-y8-KNf"/>
                         <segue destination="6kH-qg-QiH" kind="show" identifier="notes" id="sSh-Qs-oHL"/>
                     </connections>
                 </viewController>
@@ -256,9 +256,6 @@
                                                     <state key="normal" title="Edit Note">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="editNotePressed:" destination="O9g-Sg-ywe" eventType="touchUpInside" id="wS2-dH-h5f"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaL-ld-jYX">
                                                     <rect key="frame" x="202.5" y="137" width="142.5" height="30"/>
@@ -270,9 +267,6 @@
                                                     <state key="normal" title="Complete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="toggleCompletePressed:" destination="O9g-Sg-ywe" eventType="touchUpInside" id="Ug5-Tn-20x"/>
-                                                    </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ThK-V3-32a">
                                                     <rect key="frame" x="10" y="8" width="355" height="30"/>
@@ -316,10 +310,11 @@
                                             <constraint firstAttribute="bottom" secondItem="Jhh-bI-Itp" secondAttribute="bottom" constant="8" id="XBw-Vh-o1w"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="btnCompleted" destination="yaL-ld-jYX" id="ZfX-YT-bUt"/>
+                                            <outlet property="completeButton" destination="yaL-ld-jYX" id="ZfX-YT-bUt"/>
                                             <outlet property="contentView" destination="rmB-BV-LSh" id="3Rd-j5-ms9"/>
-                                            <outlet property="detailText" destination="9CJ-15-FGU" id="cbU-tZ-xJw"/>
-                                            <outlet property="titleText" destination="6OA-oi-tOf" id="FtE-Fe-l7X"/>
+                                            <outlet property="detailTextView" destination="9CJ-15-FGU" id="DXf-3B-942"/>
+                                            <outlet property="editButton" destination="Jhh-bI-Itp" id="vrN-IC-o9t"/>
+                                            <outlet property="titleLabel" destination="6OA-oi-tOf" id="xID-p7-TXF"/>
                                             <outlet property="titleView" destination="ThK-V3-32a" id="tuW-ee-pUm"/>
                                         </connections>
                                     </tableViewCell>
@@ -460,7 +455,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sSh-Qs-oHL"/>
-        <segue reference="szl-nA-ho1"/>
+        <segue reference="4Fa-iZ-gxT"/>
+        <segue reference="Omj-K2-2d5"/>
+        <segue reference="7t9-VU-ykJ"/>
     </inferredMetricsTieBreakers>
 </document>

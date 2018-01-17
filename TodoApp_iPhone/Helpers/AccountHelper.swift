@@ -8,10 +8,18 @@ class AccountHelper {
 
     var userId: Int?
     var token: String?
-    var userName: String?
+    var username: String?
 
     fileprivate init() {
 
+    }
+    
+    func getUsername() -> String {
+        return username!
+    }
+    
+    func getToken() -> String {
+        return token!
     }
 }
 

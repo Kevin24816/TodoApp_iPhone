@@ -8,84 +8,82 @@
 
 import Foundation
 
-class TodoModel {
+class NetworkController {
+    static func getRequestHeader() -> [String: String] {
+        return ["Authorization": "Bearer \(AccountHelper.sharedInstance.getToken())"]
+    }
     
-
-
-    
-    func login(username: String, password: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+    static func login(username: String, password: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
         let requestBody: [String: Any] = ["username": username, "password": password]
-        let request = ServerModel.makeHTTPRequest(withURLExt: "auth", withHTTPMethod: "POST", withRequestHeaders: nil, withRequestBody: requestBody)
+        let request = RequestHelper.makeHTTPRequest(withURLExt: "auth", withHTTPMethod: "POST", withRequestHeaders: nil, withRequestBody: requestBody)
         
         let completionHandler = authHandlerFactory(viewCompletionHandler: viewHandler)
-        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["username", "token"], completionHandler: completionHandler)
+        RequestHelper.sendHTTPRequest(withRequest: request, getDataOn: ["username", "token"], completionHandler: completionHandler)
     }
     
-    func signup(username: String, password: String, passwordConf: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
-        let requestBody: [String: Any] = ["username": username, "password": password, "password_confirmation": passwordConf]
-        let request = ServerModel.makeHTTPRequest(withURLExt: "users", withHTTPMethod: "POST", withRequestHeaders: nil, withRequestBody: requestBody)
+    static func signup(username: String, password: String, passwordConf: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestBody: [String: Any] = ["username": username as Any, "password": password, "password_confirmation": passwordConf]
+        let request = RequestHelper.makeHTTPRequest(withURLExt: "users", withHTTPMethod: "POST", withRequestHeaders: nil, withRequestBody: requestBody)
         
         let completionHandler = authHandlerFactory(viewCompletionHandler: viewHandler)
-        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["username", "token"], completionHandler: completionHandler)
+        RequestHelper.sendHTTPRequest(withRequest: request, getDataOn: ["username", "token"], completionHandler: completionHandler)
     }
     
-    func signout(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
-        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
-        let request = ServerModel.makeHTTPRequest(withURLExt: "auth", withHTTPMethod: "DELETE", withRequestHeaders: requestHeaders, withRequestBody: nil)
+    static func signout(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestHeader = getRequestHeader()
+        let request = RequestHelper.makeHTTPRequest(withURLExt: "auth", withHTTPMethod: "DELETE", withRequestHeaders: requestHeader, withRequestBody: nil)
         let completionHandler = signoutHandlerFactory(viewCompletionHandler: viewHandler)
-        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: [], completionHandler: completionHandler)
+        RequestHelper.sendHTTPRequest(withRequest: request, getDataOn: [], completionHandler: completionHandler)
     }
     
-    func loadNotes(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
-        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
-        let request = ServerModel.makeHTTPRequest(withURLExt: "notes", withHTTPMethod: "GET", withRequestHeaders: requestHeaders, withRequestBody: nil)
+    static func loadNotes(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestHeader = getRequestHeader()
+        let request = RequestHelper.makeHTTPRequest(withURLExt: "notes", withHTTPMethod: "GET", withRequestHeaders: requestHeader, withRequestBody: nil)
         
         let completionHandler = loadNotesHandlerFactory(viewCompletionHandler: viewHandler)
-        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["notes"], completionHandler: completionHandler)
+        RequestHelper.sendHTTPRequest(withRequest: request, getDataOn: ["notes"], completionHandler: completionHandler)
     }
     
-    func addNote(withTitle title: String, withDetail detail: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
-        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
+    static func addNote(withTitle title: String, withDetail detail: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestHeader = getRequestHeader()
         let requestBody = ["title": title, "description": detail]
-        let request = ServerModel.makeHTTPRequest(withURLExt: "notes", withHTTPMethod: "POST", withRequestHeaders: requestHeaders, withRequestBody: requestBody)
+        let request = RequestHelper.makeHTTPRequest(withURLExt: "notes", withHTTPMethod: "POST", withRequestHeaders: requestHeader, withRequestBody: requestBody)
         
-        let completionHandler = saveNoteHandlerFactory(viewCompletionHandler: viewHandler)
-        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
+        RequestHelper.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: viewHandler)
     }
     
-    func editNote(onNoteID id: Int, withTitle title: String, withDetail detail: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
-        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
+    static func editNote(onNoteID id: Int, withTitle title: String, withDetail detail: String, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestHeader = getRequestHeader()
         let requestBody = ["title": title, "description": detail]
-        let request = ServerModel.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "PUT", withRequestHeaders: requestHeaders, withRequestBody: requestBody)
+        let request = RequestHelper.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "PUT", withRequestHeaders: requestHeader, withRequestBody: requestBody)
         
-        let completionHandler = saveNoteHandlerFactory(viewCompletionHandler: viewHandler)
-        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
+        RequestHelper.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: viewHandler)
     }
     
-    func deleteNote(onNoteID id: Int, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
-        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
-        let request = ServerModel.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "DELETE", withRequestHeaders: requestHeaders, withRequestBody: nil)
+    static func deleteNote(onNoteID id: Int, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestHeader = getRequestHeader()
+        let request = RequestHelper.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "DELETE", withRequestHeaders: requestHeader, withRequestBody: nil)
         
-        let completionHandler = saveNoteHandlerFactory(viewCompletionHandler: viewHandler)
-        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
+        RequestHelper.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: viewHandler)
     }
     
-    func toggleCompleted(onNote id: Int, withCurrentState state: Bool, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
-        let requestHeaders = ["Authorization": "Bearer \(apiToken!)"]
+    static func toggleCompleted(onNote id: Int, withCurrentState state: Bool, viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) {
+        let requestHeader = getRequestHeader()
         let requestBody = ["completed" : !state]
-        let request = ServerModel.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "PUT", withRequestHeaders: requestHeaders, withRequestBody: requestBody)
         
-        let completionHandler = saveNoteHandlerFactory(viewCompletionHandler: viewHandler)
-        ServerModel.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: completionHandler)
+        print("changing state to \(!state) on note \(id)")
+        let request = RequestHelper.makeHTTPRequest(withURLExt: "notes/\(id)", withHTTPMethod: "PUT", withRequestHeaders: requestHeader, withRequestBody: requestBody)
+        
+        RequestHelper.sendHTTPRequest(withRequest: request, getDataOn: ["id"], completionHandler: viewHandler)
     }
     
     // Returns handler that updates the model as well as calls the view handler
-    private func authHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
+    static private func authHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
         let completionHandler: (Bool, Any?, Error?) -> Void = {
             success, response, error in
             
             if !success {
-                print("error: database failed. Description: \(error!.localizedDescription)")
+                print("error: database failed. From: NetworkController@authHandlerFactory. Description: \(error!.localizedDescription)")
                 viewHandler(false, nil, error)
                 return
             }
@@ -101,29 +99,17 @@ class TodoModel {
                 return
             }
             
-            self.username = username
-            self.apiToken = token
+            AccountHelper.sharedInstance.username = username
+            AccountHelper.sharedInstance.token = token
+
             viewHandler(true, nil, nil)
         }
         
         return completionHandler
     }
     
-    private func saveNoteHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
-        let completionHandler: (Bool, Any?, Error?) -> Void = {
-            success, response, error in
-            if success {
-                viewHandler(true, nil, nil)
-            } else {
-                viewHandler(false, nil, error)
-            }
-        }
-        
-        return completionHandler
-    }
-    
     // Handler that saves the new loaded notes as well as calls the view handler, which should update the view with the new notes.
-    private func loadNotesHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
+    static private func loadNotesHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
         let completionHandler: (Bool, Any?, Error?) -> Void = {
             success, response, error in
             
@@ -143,7 +129,8 @@ class TodoModel {
                 return
             }
             
-            self.notes.removeAll()
+            NotesStore.sharedInstance.notes.removeAll()
+
             // store the notes
             for noteItem in notes {
                 let note = Note(withTitle: noteItem["title"] as! String,
@@ -151,7 +138,7 @@ class TodoModel {
                                 withCompleted: noteItem["completed"] as! Bool,
                                 withCreatedDate: noteItem["created_at"] as! String,
                                 withID: noteItem["id"] as! Int)
-                self.notes.append(note)
+                NotesStore.sharedInstance.notes.append(note)
             }
 
             viewHandler(true, nil, nil)
@@ -160,7 +147,7 @@ class TodoModel {
         return completionHandler
     }
     
-    private func signoutHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
+    static private func signoutHandlerFactory(viewCompletionHandler viewHandler: @escaping (Bool, Any?, Error?) -> Void) -> ((Bool, Any?, Error?) -> Void) {
         let completionHandler: (Bool, Any?, Error?) -> Void = {
             success, response, error in
             
@@ -171,15 +158,12 @@ class TodoModel {
             }
             
             viewHandler(true, nil, nil)
-            self.apiToken = nil
-            self.username = nil
-            self.notes = [Note]()
+            AccountHelper.sharedInstance.token = nil
+            AccountHelper.sharedInstance.username = nil
+            NotesStore.sharedInstance.notes = [Note]()
         }
         
         return completionHandler
     }
-    
-    func getNotes() -> [Note] {
-        return notes
-    }
+
 }

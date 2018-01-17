@@ -10,7 +10,6 @@ import UIKit
 
 class EditNoteViewController: UIViewController {
 
-    var model: TodoModel?
     var reloadNotesHandler: ((Bool, Any?, Error?) -> Void)?
     var preloadedNote: Note?
     
@@ -35,9 +34,9 @@ class EditNoteViewController: UIViewController {
         
         // check if this segue is for editing or making a new note
         if preloadedNote == nil {
-            model?.addNote(withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
+            NetworkController.addNote(withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
         } else {
-            model?.editNote(onNoteID: (preloadedNote?.id)!, withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
+            NetworkController.editNote(onNoteID: (preloadedNote?.id)!, withTitle: title, withDetail: details, viewCompletionHandler: closeEditorHandler(success:response:error:))
         }
     }
     
@@ -45,7 +44,7 @@ class EditNoteViewController: UIViewController {
         if preloadedNote == nil {
             performSegue(withIdentifier: "close editor", sender: nil)
         } else {
-            model?.deleteNote(onNoteID: (preloadedNote?.id)!, viewCompletionHandler: closeEditorHandler(success:response:error:))
+            NetworkController.deleteNote(onNoteID: (preloadedNote?.id)!, viewCompletionHandler: closeEditorHandler(success:response:error:))
         }
     }
     
@@ -63,7 +62,7 @@ class EditNoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard model != nil, reloadNotesHandler != nil else {
+        guard reloadNotesHandler != nil else {
             return
         }
         
@@ -93,14 +92,8 @@ class EditNoteViewController: UIViewController {
         view.endEditing(true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let noteVC = segue.destination as? NotesViewController {
-            guard let todoModel = self.model else {
-                return
-            }
-            
-            noteVC.model = todoModel
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//    }
 
 }
